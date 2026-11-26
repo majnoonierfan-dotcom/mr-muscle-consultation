@@ -1,0 +1,238 @@
+<!doctype html>
+<html lang="fa" dir="rtl">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="theme-color" content="#101010">
+  <meta name="description" content="فرم درخواست مشاوره رایگان تناسب اندام آقای عضله">
+  <title>درخواست مشاوره رایگان | آقای عضله</title>
+  <style>
+    :root{--bg:#0b0c0e;--panel:#15171a;--panel2:#1d2024;--yellow:#ffca05;--yellow2:#f4b900;--white:#f7f7f7;--muted:#b9bec5;--line:#363a40;--green:#22c55e}
+    *{box-sizing:border-box}
+    body{margin:0;background:radial-gradient(ellipse at top,#24211a 0,#0b0c0e 45%);color:var(--white);font-family:Tahoma,Arial,sans-serif;line-height:1.8;min-height:100vh}
+    .wrap{width:min(100% - 24px,680px);margin:0 auto;padding:18px 0 42px}
+    .brand{text-align:center;color:var(--yellow);font-weight:900;font-size:23px;letter-spacing:-.5px;margin:4px 0 12px}
+    .hero-card{position:relative;display:flex;align-items:center;justify-content:space-between;gap:12px;min-height:150px;padding:20px;overflow:hidden;border-radius:18px;border:1px solid #625126;background:radial-gradient(circle at 15% 20%,#59430e 0,transparent 42%),linear-gradient(135deg,#252016,#111214 72%);box-shadow:0 14px 40px #0009}
+    .hero-copy{display:flex;flex-direction:column;gap:5px;max-width:68%}
+    .hero-copy strong{font-size:25px;font-weight:900;color:var(--yellow)}
+    .hero-copy span{font-size:13px;color:#fff}
+    .hero-copy small{font-size:11px;color:#c7c0ae}
+    .hero-mark{display:flex;flex-direction:column;align-items:center;justify-content:center;flex:0 0 96px;height:96px;border:2px solid var(--yellow);border-radius:50%;color:var(--yellow);transform:rotate(-8deg);box-shadow:0 0 24px #ffca0520}
+    .hero-mark span{font-size:32px;font-weight:1000;line-height:1}
+    .hero-mark b{font-size:10px;letter-spacing:1px}
+    .hero-badge{position:absolute;left:12px;bottom:8px;color:#ffdc51;font-size:10px;font-weight:800}
+    .intro{text-align:center;margin:18px 4px 20px}
+    h1{font-size:23px;line-height:1.5;margin:0 0 7px;color:var(--yellow)}
+    .intro p{margin:0;color:#e2e2e2;font-size:14px}
+    .card{background:linear-gradient(160deg,#1a1c20,#111214);border:1px solid #383b40;border-radius:20px;padding:18px 16px;box-shadow:0 15px 34px #0007}
+    .progress-head{display:flex;justify-content:space-between;align-items:center;color:var(--muted);font-size:12px;margin-bottom:8px}
+    .bar{height:7px;border-radius:99px;background:#34383e;overflow:hidden;margin-bottom:18px}
+    .bar span{height:100%;width:0;display:block;background:linear-gradient(90deg,#f2a900,#ffe15a);transition:width .25s}
+    .field{margin:0 0 18px;padding:0;border:0;min-width:0}
+    .field label,.legend{display:block;font-weight:800;color:#fff;font-size:15px;margin-bottom:8px}
+    .num{display:inline-grid;place-items:center;width:25px;height:25px;border-radius:50%;background:var(--yellow);color:#111;font-size:13px;font-weight:900;margin-left:7px}
+    input,select{width:100%;min-height:49px;border:1px solid #484d54;border-radius:12px;background:#0c0e10;color:#fff;padding:11px 13px;font:inherit;font-size:14px;outline:none}
+    input:focus,select:focus{border-color:var(--yellow);box-shadow:0 0 0 3px #ffca0520}
+    input::placeholder{color:#858b93}
+    .hint{display:block;color:#969ca4;font-size:11px;margin-top:5px}
+    .choices{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:8px}
+    .choice{position:relative}
+    .choice input{position:absolute;opacity:0;inset:0;width:100%;height:100%;cursor:pointer}
+    .choice span{display:flex;align-items:center;justify-content:center;text-align:center;min-height:48px;padding:8px;border:1px solid #484d54;border-radius:12px;background:#0c0e10;color:#e9e9e9;font-size:13px;cursor:pointer;transition:.15s}
+    .choice input:checked+span{border-color:var(--yellow);background:#ffca0517;color:#ffdf55;box-shadow:inset 0 0 0 1px var(--yellow)}
+    .submit-wrap{display:none;margin-top:5px}
+    .submit-wrap.show{display:block;animation:rise .25s ease}
+    @keyframes rise{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:translateY(0)}}
+    button{width:100%;min-height:54px;border:0;border-radius:14px;background:linear-gradient(180deg,#ffdf32,#f6b900);color:#17130a;font:inherit;font-weight:900;font-size:16px;cursor:pointer;box-shadow:0 7px 18px #e9a9002e}
+    button:active{transform:scale(.99)}
+    .submit-note{font-size:11px;color:#aeb4bc;text-align:center;margin:9px 0 0}
+    .status{display:none;margin-top:15px;padding:13px;border-radius:12px;background:#102719;border:1px solid #237d45;color:#c8f7d8;font-size:13px}
+    .status.show{display:block}
+    .actions{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-top:12px}
+    .actions a,.actions button{min-height:46px;border-radius:11px;display:flex;align-items:center;justify-content:center;text-decoration:none;font-size:13px;padding:8px}
+    .actions a{background:#1c8e48;color:white;font-weight:800}
+    .actions button{background:#292d32;color:#fff;border:1px solid #4b5159;box-shadow:none}
+    textarea{width:100%;margin-top:12px;min-height:120px;resize:vertical;background:#090a0b;border:1px solid #3f454d;border-radius:10px;padding:10px;color:#eee;font:12px/1.9 Tahoma,Arial,sans-serif;display:none}
+    .foot{text-align:center;color:#8d939b;font-size:11px;margin:16px 0 0}
+    .foot a{color:#ffda36;text-decoration:none}
+    @media(max-width:390px){.choices{grid-template-columns:1fr}.card{padding:15px 12px}h1{font-size:21px}.wrap{width:min(100% - 18px,680px)}}
+  </style>
+</head>
+<body>
+  <main class="wrap">
+    <div class="brand">آقای عضله</div>
+    <section class="hero-card" aria-label="معرفی آقای عضله">
+      <div class="hero-copy">
+        <strong>آقای عضله</strong>
+        <span>مشاوره تخصصی لاغری و افزایش وزن اصولی</span>
+        <small>ویژه بانوان و آقایان</small>
+      </div>
+      <div class="hero-mark" aria-hidden="true"><span>MR</span><b>MUSCLE</b></div>
+      <div class="hero-badge">وقت تغییر اندامت رسیده!</div>
+    </section>
+    <section class="intro">
+      <h1>وقت تغییر اندامت رسیده!</h1>
+      <p>برای دریافت مشاوره رایگان، به ۷ سؤال کوتاه پاسخ بده.</p>
+    </section>
+
+    <form class="card" id="consultForm" novalidate>
+      <div class="progress-head"><span>تکمیل فرم مشاوره</span><strong id="progressText">۰ از ۷ پاسخ</strong></div>
+      <div class="bar"><span id="progressBar"></span></div>
+
+      <div class="field">
+        <label for="rubika"><span class="num">۱</span>آیدی روبیکای شما</label>
+        <input id="rubika" name="rubika" type="text" placeholder="مثلاً @your_id" autocomplete="off" required>
+        <small class="hint">آیدی را درست وارد کن تا بتوانیم با تو ارتباط بگیریم.</small>
+      </div>
+
+      <fieldset class="field">
+        <legend class="legend"><span class="num">۲</span>چه نوع مشاوره‌ای می‌خواهی؟</legend>
+        <div class="choices">
+          <label class="choice"><input type="radio" name="service" value="لاغری" required><span>لاغری</span></label>
+          <label class="choice"><input type="radio" name="service" value="افزایش وزن اصولی"><span>افزایش وزن</span></label>
+          <label class="choice"><input type="radio" name="service" value="کاهش شکم و پهلو"><span>شکم و پهلو</span></label>
+          <label class="choice"><input type="radio" name="service" value="تغذیه اصولی"><span>تغذیه اصولی</span></label>
+          <label class="choice"><input type="radio" name="service" value="مشاوره مکمل ورزشی"><span>مکمل ورزشی</span></label>
+        </div>
+      </fieldset>
+
+      <div class="field">
+        <label for="age"><span class="num">۳</span>چند سالته؟</label>
+        <input id="age" name="age" type="number" inputmode="numeric" min="12" max="100" placeholder="سن به سال" required>
+      </div>
+
+      <div class="field">
+        <label for="height"><span class="num">۴</span>قدت چند سانتی‌متره؟</label>
+        <input id="height" name="height" type="number" inputmode="numeric" min="100" max="230" placeholder="مثلاً ۱۷۵" required>
+      </div>
+
+      <div class="field">
+        <label for="weight"><span class="num">۵</span>وزن فعلیت چند کیلوگرمه؟</label>
+        <input id="weight" name="weight" type="number" inputmode="decimal" min="25" max="300" step="0.1" placeholder="مثلاً ۸۰" required>
+      </div>
+
+      <div class="field">
+        <label for="goal"><span class="num">۶</span>وزن هدفت چقدره؟</label>
+        <input id="goal" name="goal" type="text" placeholder="مثلاً ۷۰ کیلو یا هنوز نمی‌دانم" required>
+      </div>
+
+      <fieldset class="field">
+        <legend class="legend"><span class="num">۷</span>میزان فعالیت ورزشی‌ات چقدره؟</legend>
+        <div class="choices">
+          <label class="choice"><input type="radio" name="activity" value="کم / بدون ورزش" required><span>کم / بدون ورزش</span></label>
+          <label class="choice"><input type="radio" name="activity" value="۱ تا ۲ روز در هفته"><span>۱ تا ۲ روز در هفته</span></label>
+          <label class="choice"><input type="radio" name="activity" value="۳ تا ۴ روز در هفته"><span>۳ تا ۴ روز در هفته</span></label>
+          <label class="choice"><input type="radio" name="activity" value="۵ روز یا بیشتر در هفته"><span>۵ روز یا بیشتر</span></label>
+        </div>
+      </fieldset>
+
+      <div class="submit-wrap" id="submitWrap">
+        <button type="submit">ثبت درخواست مشاوره رایگان</button>
+        <p class="submit-note">دکمه فقط پس از پاسخ به هر ۷ سؤال نمایش داده می‌شود.</p>
+        <p class="submit-note">برای رسیدن درخواست به مربی، پیام آماده را در روبیکا ارسال کن؛ پاسخ‌ها پیش از ارسال، روی سایت ذخیره نمی‌شوند.</p>
+      </div>
+
+      <div class="status" id="status" aria-live="polite">
+        <strong>درخواستت آماده ارسال است.</strong><br>
+        <span id="copyStatus">متن پاسخ‌ها را در گفت‌وگوی روبیکا برای مربی جای‌گذاری و ارسال کن.</span>
+        <div class="actions">
+          <a href="https://rubika.ir/varzesh_calisthenics" target="_blank" rel="noopener">باز کردن روبیکا</a>
+          <button type="button" id="copyAgain">کپی دوباره پاسخ‌ها</button>
+        </div>
+        <textarea id="messageText" readonly aria-label="متن آماده ارسال به روبیکا"></textarea>
+      </div>
+    </form>
+    <p class="foot">آقای عضله | مشاوره تخصصی و اصولی تناسب اندام<br><a href="https://rubika.ir/varzesh_calisthenics" target="_blank" rel="noopener">ارتباط در روبیکا: @varzesh_calisthenics</a></p>
+  </main>
+<script>
+(() => {
+  const form = document.getElementById('consultForm');
+  const fields = ['rubika','service','age','height','weight','goal','activity'];
+  const progressText = document.getElementById('progressText');
+  const progressBar = document.getElementById('progressBar');
+  const submitWrap = document.getElementById('submitWrap');
+  const status = document.getElementById('status');
+  const messageText = document.getElementById('messageText');
+  const copyStatus = document.getElementById('copyStatus');
+  let savedMessage = '';
+
+  const getVal = name => {
+    const el = form.elements[name];
+    if (!el) return '';
+    if (el instanceof RadioNodeList) return el.value || '';
+    return (el.value || '').trim();
+  };
+  const answered = () => fields.filter(name => getVal(name)).length;
+  function updateProgress(){
+    const n = answered();
+    progressText.textContent = `${n.toLocaleString('fa-IR')} از ۷ پاسخ`;
+    progressBar.style.width = `${n / 7 * 100}%`;
+    submitWrap.classList.toggle('show', n === 7);
+    if (n !== 7) status.classList.remove('show');
+  }
+  form.addEventListener('input', updateProgress);
+  form.addEventListener('change', updateProgress);
+  async function copyMessage(){
+    try {
+      await navigator.clipboard.writeText(savedMessage);
+      return true;
+    } catch (_) {
+      messageText.style.display = 'block';
+      messageText.value = savedMessage;
+      messageText.focus();
+      messageText.select();
+      try { return document.execCommand('copy'); } catch (_) { return false; }
+    }
+  }
+  form.addEventListener('submit', async event => {
+    event.preventDefault();
+    updateProgress();
+    if (answered() !== 7 || !form.reportValidity()) return;
+    const data = {
+      rubika:getVal('rubika'), service:getVal('service'), age:getVal('age'),
+      height:getVal('height'), weight:getVal('weight'), goal:getVal('goal'), activity:getVal('activity')
+    };
+    savedMessage = [
+      '🏋️ درخواست مشاوره رایگان آقای عضله',
+      '━━━━━━━━━━━━━━',
+      `آیدی روبیکا: ${data.rubika.startsWith('@') ? data.rubika : '@'+data.rubika}`,
+      `نوع مشاوره: ${data.service}`,
+      `سن: ${data.age} سال`,
+      `قد: ${data.height} سانتی‌متر`,
+      `وزن فعلی: ${data.weight} کیلوگرم`,
+      `وزن هدف: ${data.goal}`,
+      `فعالیت ورزشی: ${data.activity}`,
+      '━━━━━━━━━━━━━━',
+      'لطفاً برای مشاوره راهنمایی‌ام کنید.'
+    ].join('\n');
+    messageText.value = savedMessage;
+    status.classList.add('show');
+    // Open synchronously in the click handler so mobile browsers do not block the tab.
+    window.open('https://rubika.ir/varzesh_calisthenics','_blank','noopener');
+    const copied = await copyMessage();
+    if (copied) {
+      copyStatus.textContent = 'پاسخ‌ها کپی شد. حالا در گفت‌وگوی روبیکا آن‌ها را جای‌گذاری و ارسال کن.';
+    } else {
+      copyStatus.textContent = 'کپی خودکار انجام نشد؛ متن انتخاب‌شده را کپی کن و در روبیکا بفرست.';
+      messageText.style.display = 'block';
+      messageText.focus(); messageText.select();
+    }
+    document.querySelector('.status').scrollIntoView({behavior:'smooth',block:'center'});
+  });
+  document.getElementById('copyAgain').addEventListener('click', async () => {
+    if (!savedMessage) return;
+    const copied = await copyMessage();
+    if (copied) {
+      messageText.style.display = 'none';
+      copyStatus.textContent = 'پاسخ‌ها دوباره کپی شد؛ آن‌ها را در روبیکا جای‌گذاری و ارسال کن.';
+      document.getElementById('copyAgain').textContent = 'کپی شد';
+      setTimeout(() => document.getElementById('copyAgain').textContent = 'کپی دوباره پاسخ‌ها', 1800);
+    } else {
+      copyStatus.textContent = 'متن را از کادر زیر به‌صورت دستی کپی کن.';
+    }
+  });
+  updateProgress();
+})();
+</script>
+</body>
+</html>
