@@ -73,6 +73,15 @@
       .field,input,select,.choices,.consent,.submit-wrap{max-width:100%}
       .hero-copy,.hero-copy strong,.hero-copy span,.hero-copy small{overflow-wrap:anywhere}
     }
+    /* Mobile/tablet: remove the narrow centered column and use the full screen width */
+    @media screen and (max-width:1280px){
+      html,body{width:100%;max-width:100%;min-width:0;overflow-x:hidden}
+      .wrap{display:block;width:100%;max-width:none;margin:0;padding:14px 12px 36px}
+      .hero-card,.guide,.card{display:block;width:100%;max-width:none}
+      .hero-card{display:flex}
+      .field,.choices,.consent,.submit-wrap{width:100%;max-width:100%}
+      input,select,textarea,button{max-width:100%}
+    }
     @media(max-width:390px){.choices{grid-template-columns:1fr}.card{padding:15px 12px}h1{font-size:21px}.wrap{padding-left:9px;padding-right:9px}.hero-card{padding:14px 12px}.hero-mark{flex-basis:68px;width:68px;height:68px}}
   </style>
 </head>
@@ -101,8 +110,9 @@
         <li>به هر ۷ سؤال پاسخ بده؛ گزینه‌ها را انتخاب و عددها را وارد کن.</li>
         <li>بعد از تکمیل پاسخ‌ها، تیک موافقت با ذخیره اطلاعات را فعال کن.</li>
         <li>دکمه «ثبت درخواست مشاوره رایگان» را بزن و تا نمایش پیام نتیجه صبر کن.</li>
+        <li>پس از ثبت موفق، متن پیام و همه پاسخ‌ها به‌صورت خودکار کپی می‌شوند؛ وارد پی‌وی مربی در روبیکا شو و آن‌ها را ارسال کن.</li>
       </ol>
-      <p>با نمایش پیام موفقیت، درخواستت در سامانه ثبت شده است. ارسال پیام تکمیلی در روبیکا اختیاری است.</p>
+      <p>ثبت در سامانه انجام می‌شود و برای اطلاع مستقیم مربی، پیام کپی‌شده را در پی‌وی او بفرست.</p>
     </section>
 
     <form class="card" id="consultForm" novalidate>
