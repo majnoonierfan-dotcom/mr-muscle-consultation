@@ -3,165 +3,153 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-  <meta name="theme-color" content="#101010">
-  <meta name="description" content="فرم درخواست مشاوره رایگان تناسب اندام آقای عضله">
-  <title>درخواست مشاوره رایگان | آقای عضله</title>
+  <meta name="theme-color" content="#0b1018">
+  <meta name="description" content="فرم درخواست مشاوره رایگان آقای عضله">
+  <title>مشاوره رایگان | آقای عضله</title>
   <style>
-    :root{--bg:#0b0c0e;--panel:#15171a;--panel2:#1d2024;--yellow:#ffca05;--yellow2:#f4b900;--white:#f7f7f7;--muted:#b9bec5;--line:#363a40;--green:#22c55e}
+    :root{color-scheme:dark;--gold:#e9c46a;--gold2:#f5d98e;--ink:#0b1018;--panel:rgba(20,27,38,.92);--muted:#a9b3c2;--line:rgba(221,198,137,.2);--white:#f7f5ef;--green:#3cc783}
     *{box-sizing:border-box;min-width:0}
-    html{width:100%;max-width:100%;overflow-x:hidden}
-    body{width:100% !important;max-width:100% !important;min-width:0 !important;overflow-x:hidden !important}
-    .hero-card,.guide,.card{width:100% !important;max-width:none !important;margin-left:0 !important;margin-right:0 !important}
-    .field,.choices,.consent,.submit-wrap,input,select,textarea,button{max-width:100% !important}
-    body{width:100%;max-width:100%;overflow-x:hidden;margin:0;background:radial-gradient(ellipse at top,#24211a 0,#0b0c0e 45%);color:var(--white);font-family:Tahoma,Arial,sans-serif;line-height:1.8;min-height:100vh}
-    .wrap{display:block;width:100% !important;max-width:none !important;margin:0 !important;padding:14px 12px 36px !important;}
-    .brand{text-align:center;color:var(--yellow);font-weight:900;font-size:23px;letter-spacing:-.5px;margin:4px 0 12px}
-    .hero-card{position:relative;display:flex;align-items:center;justify-content:space-between;gap:10px;min-height:150px;padding:16px;overflow:hidden;border-radius:18px;border:1px solid #625126;background:radial-gradient(circle at 15% 20%,#59430e 0,transparent 42%),linear-gradient(135deg,#252016,#111214 72%);box-shadow:0 14px 40px #0009}
-    .hero-copy{display:flex;flex:1 1 0;flex-direction:column;gap:5px;min-width:0;max-width:none;overflow-wrap:anywhere}
-    .hero-copy strong{font-size:clamp(19px,6vw,25px);font-weight:900;color:var(--yellow)}
-    .hero-copy span{font-size:13px;color:#fff}
-    .hero-copy small{font-size:11px;color:#c7c0ae}
-    .hero-mark{display:flex;flex-direction:column;align-items:center;justify-content:center;flex:0 0 76px;width:76px;height:76px;border:2px solid var(--yellow);border-radius:50%;color:var(--yellow);transform:rotate(-8deg);box-shadow:0 0 24px #ffca0520}
-    .hero-mark span{font-size:32px;font-weight:1000;line-height:1}
-    .hero-mark b{font-size:10px;letter-spacing:1px}
-    .hero-badge{position:absolute;left:12px;bottom:8px;color:#ffdc51;font-size:10px;font-weight:800}
-    .intro{text-align:center;margin:18px 4px 20px}
-    h1{font-size:23px;line-height:1.5;margin:0 0 7px;color:var(--yellow)}
-    .intro p{margin:0;color:#e2e2e2;font-size:14px}
-    .card{background:linear-gradient(160deg,#1a1c20,#111214);border:1px solid #383b40;border-radius:20px;padding:18px 16px;box-shadow:0 15px 34px #0007}
-    .guide{margin:0 0 14px;padding:14px 15px;border:1px solid #4a4024;border-radius:16px;background:linear-gradient(145deg,#201d15,#121315)}
-    .guide h2{margin:0 0 7px;color:var(--yellow);font-size:15px}
-    .guide p{margin:0 0 6px;color:#e8e8e8;font-size:12px}
-    .guide ol{margin:0;padding:0 20px 0 0;color:#cbd0d6;font-size:12px;line-height:1.9}
+    html{width:100%;max-width:100%;overflow-x:hidden;scroll-behavior:smooth}
+    body{margin:0;width:100%;min-width:0;max-width:100%;overflow-x:hidden;min-height:100vh;min-height:100svh;background:radial-gradient(ellipse at 82% -8%,rgba(194,157,77,.19),transparent 35%),radial-gradient(ellipse at 0% 35%,rgba(68,102,145,.17),transparent 40%),linear-gradient(155deg,#080c12 0%,#111a27 54%,#0a0f17 100%);color:var(--white);font-family:Tahoma,Arial,sans-serif;line-height:1.85}
+    button,input,select,textarea{font:inherit}
+    .page{width:calc(100% - 28px);max-width:720px;margin:0 auto;padding:22px 0 34px}
+    .topline{display:flex;justify-content:space-between;align-items:center;gap:12px;margin-bottom:16px}
+    .brand{font-weight:900;color:var(--gold2);font-size:19px;letter-spacing:-.4px}
+    .tag{font-size:11px;color:#d6c79e;border:1px solid var(--line);border-radius:99px;padding:5px 10px;background:rgba(255,255,255,.035)}
+    .hero{position:relative;overflow:hidden;border:1px solid rgba(233,196,106,.28);border-radius:24px;padding:24px 22px;background:linear-gradient(115deg,rgba(35,44,55,.97),rgba(20,27,37,.94) 60%,rgba(54,45,29,.72));box-shadow:0 22px 60px rgba(0,0,0,.27)}
+    .hero:after{content:"";position:absolute;width:210px;height:210px;border:1px solid rgba(233,196,106,.16);border-radius:50%;left:-95px;top:-116px;box-shadow:0 0 0 22px rgba(233,196,106,.025),0 0 0 46px rgba(233,196,106,.02)}
+    .hero-kicker{font-size:11px;color:var(--gold);font-weight:700;letter-spacing:1.5px}
+    .hero h1{margin:7px 0 5px;font-size:clamp(25px,6vw,36px);line-height:1.5;color:#fff;font-weight:900}
+    .hero p{margin:0;color:#c5ccd5;font-size:13px;max-width:490px}
+    .hero-bottom{display:flex;align-items:center;gap:8px;margin-top:18px;color:#f0dca7;font-size:11px}
+    .dot{width:7px;height:7px;border-radius:50%;background:var(--gold);box-shadow:0 0 12px var(--gold);flex:0 0 auto}
+    .intro{margin:20px 2px 14px}
+    .intro h2{font-size:17px;margin:0 0 4px;color:var(--gold2)}
+    .intro p{font-size:12px;color:var(--muted);margin:0}
+    .guide,.form-card{border:1px solid var(--line);border-radius:20px;background:var(--panel);box-shadow:0 16px 42px rgba(0,0,0,.2);backdrop-filter:blur(12px)}
+    .guide{padding:17px 18px;margin-bottom:14px}
+    .guide h3{font-size:14px;color:var(--gold2);margin:0 0 8px}
+    .guide ol{padding:0 20px 0 0;margin:0;color:#c8d0da;font-size:12px}
     .guide li{padding:2px 0}
-    .progress-head{display:flex;justify-content:space-between;align-items:center;color:var(--muted);font-size:12px;margin-bottom:8px}
-    .bar{height:7px;border-radius:99px;background:#34383e;overflow:hidden;margin-bottom:18px}
-    .bar span{height:100%;width:0;display:block;background:linear-gradient(90deg,#f2a900,#ffe15a);transition:width .25s}
-    .field{margin:0 0 18px;padding:0;border:0;min-width:0}
-    .field label,.legend{display:block;font-weight:800;color:#fff;font-size:15px;margin-bottom:8px}
-    .num{display:inline-grid;place-items:center;width:25px;height:25px;border-radius:50%;background:var(--yellow);color:#111;font-size:13px;font-weight:900;margin-left:7px}
-    input,select{width:100%;min-height:49px;border:1px solid #484d54;border-radius:12px;background:#0c0e10;color:#fff;padding:11px 13px;font:inherit;font-size:14px;outline:none}
-    input:focus,select:focus{border-color:var(--yellow);box-shadow:0 0 0 3px #ffca0520}
-    input::placeholder{color:#858b93}
-    .hint{display:block;color:#969ca4;font-size:11px;margin-top:5px}
-    .choices{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:8px}
-    .choice{position:relative}
-    .choice input{position:absolute;opacity:0;inset:0;width:100%;height:100%;cursor:pointer}
-    .choice span{display:flex;align-items:center;justify-content:center;text-align:center;min-height:48px;padding:8px;border:1px solid #484d54;border-radius:12px;background:#0c0e10;color:#e9e9e9;font-size:13px;cursor:pointer;transition:.15s}
-    .choice input:checked+span{border-color:var(--yellow);background:#ffca0517;color:#ffdf55;box-shadow:inset 0 0 0 1px var(--yellow)}
-    .submit-wrap{display:none;margin-top:5px}
-    .submit-wrap.show{display:block;animation:rise .25s ease}
-    @keyframes rise{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:translateY(0)}}
-    button{width:100%;min-height:54px;border:0;border-radius:14px;background:linear-gradient(180deg,#ffdf32,#f6b900);color:#17130a;font:inherit;font-weight:900;font-size:16px;cursor:pointer;box-shadow:0 7px 18px #e9a9002e}
-    button:active{transform:scale(.99)}
-    .submit-note{font-size:11px;color:#aeb4bc;text-align:center;margin:9px 0 0}
-    .status{display:none;margin-top:15px;padding:13px;border-radius:12px;background:#102719;border:1px solid #237d45;color:#c8f7d8;font-size:13px}
-    .status.show{display:block}
-    .status.error{background:#351515;border-color:#a83c3c;color:#ffd3d3}
-    .consent{display:flex;align-items:flex-start;gap:10px;margin:0 0 15px;padding:12px;border:1px solid #484d54;border-radius:12px;background:#101215;color:#cfd3d8;font-size:12px;line-height:1.8}
-    .consent input{width:20px;min-width:20px;min-height:20px;height:20px;flex:0 0 20px;margin:2px 0 0;accent-color:#ffca05}
+    .guide strong{color:#f1dfb2}
+    .form-card{padding:22px 20px}
+    .progress-row{display:flex;justify-content:space-between;align-items:center;gap:10px;font-size:12px;color:var(--muted);margin-bottom:8px}
+    .progress-row strong{color:var(--gold2);font-variant-numeric:tabular-nums}
+    .progress-track{height:7px;border-radius:99px;background:#303947;overflow:hidden;margin-bottom:23px}
+    .progress-fill{height:100%;width:0;background:linear-gradient(90deg,#b78c3d,#f3d78f);border-radius:inherit;transition:width .2s ease}
+    .field{border:0;padding:0;margin:0 0 20px;width:100%}
+    .field-title,.field legend{display:block;font-size:14px;font-weight:800;color:#f4f2eb;margin:0 0 8px}
+    .number{display:inline-grid;place-items:center;width:25px;height:25px;margin-left:8px;border-radius:8px;background:rgba(233,196,106,.15);border:1px solid rgba(233,196,106,.34);color:var(--gold2);font-size:12px}
+    .text-input{display:block;width:100%;max-width:100%;height:49px;border:1px solid #435064;border-radius:12px;background:#0d141e;color:#fff;padding:10px 13px;outline:0;font-size:14px}
+    .text-input:focus{border-color:var(--gold);box-shadow:0 0 0 3px rgba(233,196,106,.12)}
+    .text-input::placeholder{color:#758194}
+    #rubika{direction:ltr;text-align:left}
+    .hint{display:block;font-size:11px;color:#8995a6;margin-top:5px}
+    .choices{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:8px;width:100%}
+    .choice{position:relative;display:block;min-width:0}
+    .choice input{position:absolute;opacity:0;inset:0;width:100%;height:100%;margin:0;cursor:pointer}
+    .choice span{display:flex;align-items:center;justify-content:center;text-align:center;min-height:48px;padding:8px 10px;border:1px solid #435064;border-radius:12px;background:#0d141e;color:#d8dee7;font-size:12px;cursor:pointer;transition:border-color .15s,background .15s}
+    .choice input:checked+span{border-color:var(--gold);background:rgba(233,196,106,.12);color:var(--gold2);box-shadow:inset 0 0 0 1px rgba(233,196,106,.25)}
+    .consent{display:flex;align-items:flex-start;gap:10px;padding:12px;border:1px solid #384657;border-radius:12px;background:#111a25;color:#c4ccd6;font-size:11px;margin:0 0 14px}
+    .consent input{width:19px;height:19px;min-width:19px;flex:0 0 19px;margin:3px 0 0;accent-color:var(--gold)}
     .trap{position:absolute!important;left:-10000px!important;top:auto!important;width:1px!important;height:1px!important;overflow:hidden!important}
-    .actions{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:8px;margin-top:12px}
-    .actions a,.actions button{min-width:0;overflow-wrap:anywhere;min-height:46px;border-radius:11px;display:flex;align-items:center;justify-content:center;text-decoration:none;font-size:13px;padding:8px}
-    .actions a{background:#1c8e48;color:white;font-weight:800}
-    .actions button{background:#292d32;color:#fff;border:1px solid #4b5159;box-shadow:none}
-    textarea{width:100%;margin-top:12px;min-height:120px;resize:vertical;background:#090a0b;border:1px solid #3f454d;border-radius:10px;padding:10px;color:#eee;font:12px/1.9 Tahoma,Arial,sans-serif;display:none}
-    .foot{text-align:center;color:#8d939b;font-size:11px;margin:16px 0 0}
-    .foot a{color:#ffda36;text-decoration:none}
-    /* اصلاح نمایش در گوشی و مرورگرهای موبایلی با viewport غیرمعمول */
-    @media (pointer:coarse){
-      html,body{width:100%;max-width:100%;min-width:0;overflow-x:hidden}
-      .wrap{width:100%;max-width:none;margin:0;padding:14px 12px 36px}
-      .hero-card,.guide,.card{width:100%;max-width:100%}
-      .field,input,select,.choices,.consent,.submit-wrap{max-width:100%}
-      .hero-copy,.hero-copy strong,.hero-copy span,.hero-copy small{overflow-wrap:anywhere}
-    }
-    /* Mobile/tablet: remove the narrow centered column and use the full screen width */
-    @media screen and (max-width:1280px){
-      html,body{width:100%;max-width:100%;min-width:0;overflow-x:hidden}
-      .wrap{display:block;width:100%;max-width:none;margin:0;padding:14px 12px 36px}
-      .hero-card,.guide,.card{display:block;width:100%;max-width:none}
-      .hero-card{display:flex}
-      .field,.choices,.consent,.submit-wrap{width:100%;max-width:100%}
-      input,select,textarea,button{max-width:100%}
-    }
-    @media(max-width:390px){.choices{grid-template-columns:1fr}.card{padding:15px 12px}h1{font-size:21px}.wrap{padding-left:9px;padding-right:9px}.hero-card{padding:14px 12px}.hero-mark{flex-basis:68px;width:68px;height:68px}}
+    .submit-wrap{display:none;margin-top:8px}
+    .submit-wrap.show{display:block;animation:fade .2s ease}
+    @keyframes fade{from{opacity:0;transform:translateY(5px)}to{opacity:1;transform:translateY(0)}}
+    .submit{width:100%;min-height:54px;border:0;border-radius:13px;background:linear-gradient(120deg,#f5df9e,#d8b45c);color:#17140d;font-weight:900;font-size:15px;box-shadow:0 8px 24px rgba(188,148,67,.18);cursor:pointer}
+    .submit:disabled{opacity:.65;cursor:wait}
+    .submit-note{text-align:center;color:#95a0af;font-size:10px;margin:8px 0 0}
+    .status{display:none;margin-top:15px;border:1px solid rgba(60,199,131,.38);border-radius:14px;padding:14px;background:rgba(23,83,60,.22);color:#c9f4dc;font-size:12px}
+    .status.show{display:block}
+    .status.error{border-color:rgba(244,112,112,.4);background:rgba(91,30,30,.25);color:#ffd3d3}
+    .status-title{font-weight:900;font-size:14px}
+    .status-actions{display:flex;flex-wrap:wrap;gap:8px;margin-top:12px}
+    .status-actions a,.status-actions button{display:flex;justify-content:center;align-items:center;min-height:42px;flex:1 1 140px;padding:8px 12px;border-radius:10px;text-decoration:none;font-weight:800;font-size:12px}
+    .status-actions a{background:#1a8759;color:white}
+    .status-actions button{background:#283545;color:#fff;border:1px solid #506075}
+    textarea{display:none;width:100%;min-height:116px;margin-top:10px;padding:10px;border-radius:10px;border:1px solid #47566a;background:#0b121b;color:#fff;direction:rtl;font-size:12px;line-height:1.9}
+    .footer{text-align:center;color:#8793a3;font-size:11px;margin:18px 0 0}
+    .footer a{color:var(--gold2);text-decoration:none}
+    .coach-link{display:inline-flex;margin-top:10px;padding:7px 13px;border-radius:99px;border:1px solid rgba(233,196,106,.25);background:rgba(233,196,106,.06);color:#e8d6a9!important}
+    @media(max-width:480px){.page{width:calc(100% - 24px);padding-top:14px}.hero{padding:21px 17px;border-radius:20px}.form-card{padding:18px 14px}.guide{padding:14px}.choices{grid-template-columns:repeat(2,minmax(0,1fr))}}
+    @media(max-width:350px){.choices{grid-template-columns:1fr}.tag{font-size:10px}}
+    @media(prefers-reduced-motion:reduce){*,*:before,*:after{scroll-behavior:auto!important;animation:none!important;transition:none!important}}
   </style>
 </head>
 <body>
-  <main class="wrap">
-    <div class="brand">آقای عضله</div>
-    <section class="hero-card" aria-label="معرفی آقای عضله">
-      <div class="hero-copy">
-        <strong>آقای عضله</strong>
-        <span>مشاوره تخصصی لاغری و افزایش وزن اصولی</span>
-        <small>ویژه بانوان و آقایان</small>
-      </div>
-      <div class="hero-mark" aria-hidden="true"><span>MR</span><b>MUSCLE</b></div>
-      <div class="hero-badge">وقت تغییر اندامت رسیده!</div>
-    </section>
-    <section class="intro">
+  <main class="page">
+    <header class="topline">
+      <div class="brand">آقای عضله</div>
+      <div class="tag">مشاوره تخصصی تناسب اندام</div>
+    </header>
+
+    <section class="hero">
+      <div class="hero-kicker">MR MUSCLE · COACHING</div>
       <h1>وقت تغییر اندامت رسیده!</h1>
-      <p>برای دریافت مشاوره رایگان، به ۷ سؤال کوتاه پاسخ بده.</p>
+      <p>برای شروع مسیر تناسب اندام، فرم کوتاه زیر را کامل کن تا درخواست مشاوره رایگانت ثبت شود.</p>
+      <div class="hero-bottom"><span class="dot"></span> ویژه بانوان و آقایان · پاسخ‌گویی توسط مربی</div>
     </section>
+
+    <div class="intro">
+      <h2>درخواست مشاوره رایگان</h2>
+      <p>به ۷ سؤال پاسخ بده. تکمیل فرم با گوشی هم به‌راحتی انجام می‌شود.</p>
+    </div>
 
     <section class="guide" aria-labelledby="guideTitle">
-      <h2 id="guideTitle">راهنمای تکمیل و ثبت درخواست</h2>
-      <p>برای ثبت درست درخواست مشاوره، این ۴ مرحله را انجام بده:</p>
+      <h3 id="guideTitle">راهنمای تکمیل و ثبت درخواست</h3>
       <ol>
         <li>آیدی روبیکایت را دقیق و بدون فاصله وارد کن.</li>
-        <li>به هر ۷ سؤال پاسخ بده؛ گزینه‌ها را انتخاب و عددها را وارد کن.</li>
-        <li>بعد از تکمیل پاسخ‌ها، تیک موافقت با ذخیره اطلاعات را فعال کن.</li>
-        <li>دکمه «ثبت درخواست مشاوره رایگان» را بزن و تا نمایش پیام نتیجه صبر کن.</li>
-        <li>پس از ثبت موفق، متن پیام و همه پاسخ‌ها به‌صورت خودکار کپی می‌شوند؛ وارد پی‌وی مربی در روبیکا شو و آن‌ها را ارسال کن.</li>
+        <li>به هر ۷ سؤال پاسخ بده و گزینه‌های مناسب را انتخاب کن.</li>
+        <li>پس از تکمیل پاسخ‌ها، تیک موافقت با ذخیره اطلاعات را فعال کن.</li>
+        <li>دکمه <strong>«ثبت درخواست مشاوره رایگان»</strong> را بزن و تا نمایش پیام موفقیت صبر کن.</li>
+        <li>درخواستت در سامانه ذخیره می‌شود و در بخش خصوصی مربی قابل مشاهده است؛ برای ارتباط سریع‌تر می‌توانی پیام آماده را هم در روبیکا بفرستی.</li>
       </ol>
-      <p>ثبت در سامانه انجام می‌شود و برای اطلاع مستقیم مربی، پیام کپی‌شده را در پی‌وی او بفرست.</p>
     </section>
 
-    <form class="card" id="consultForm" novalidate>
-      <div class="trap" aria-hidden="true"><label>این قسمت را خالی بگذارید<input name="website" type="text" tabindex="-1" autocomplete="off"></label></div>
-      <div class="progress-head"><span>تکمیل فرم مشاوره</span><strong id="progressText">۰ از ۷ پاسخ</strong></div>
-      <div class="bar"><span id="progressBar"></span></div>
+    <form class="form-card" id="consultForm" novalidate>
+      <div class="trap" aria-hidden="true"><label>این قسمت را خالی بگذار<input name="website" type="text" tabindex="-1" autocomplete="off"></label></div>
+      <div class="progress-row"><span>میزان تکمیل فرم</span><strong id="progressText">۰ از ۷ پاسخ</strong></div>
+      <div class="progress-track"><div class="progress-fill" id="progressBar"></div></div>
 
       <div class="field">
-        <label for="rubika"><span class="num">۱</span>آیدی روبیکای شما</label>
-        <input id="rubika" name="rubika" type="text" placeholder="مثلاً @your_id" autocomplete="off" required>
-        <small class="hint">آیدی را درست وارد کن تا بتوانیم با تو ارتباط بگیریم.</small>
+        <label class="field-title" for="rubika"><span class="number">۱</span>آیدی روبیکای شما</label>
+        <input class="text-input" id="rubika" name="rubika" type="text" placeholder="@YourRubikaID" autocomplete="username" required minlength="3" maxlength="64" pattern="@?[A-Za-z0-9_.]{3,64}">
+        <small class="hint">آیدی را با یا بدون @ وارد کن؛ فاصله نگذار.</small>
       </div>
 
       <fieldset class="field">
-        <legend class="legend"><span class="num">۲</span>چه نوع مشاوره‌ای می‌خواهی؟</legend>
+        <legend><span class="number">۲</span>برای چه نوع مشاوره‌ای پیام می‌دهی؟</legend>
         <div class="choices">
           <label class="choice"><input type="radio" name="service" value="لاغری" required><span>لاغری</span></label>
-          <label class="choice"><input type="radio" name="service" value="افزایش وزن اصولی"><span>افزایش وزن</span></label>
-          <label class="choice"><input type="radio" name="service" value="کاهش شکم و پهلو"><span>شکم و پهلو</span></label>
+          <label class="choice"><input type="radio" name="service" value="افزایش وزن اصولی"><span>افزایش وزن اصولی</span></label>
+          <label class="choice"><input type="radio" name="service" value="کاهش شکم و پهلو"><span>کاهش شکم و پهلو</span></label>
           <label class="choice"><input type="radio" name="service" value="تغذیه اصولی"><span>تغذیه اصولی</span></label>
-          <label class="choice"><input type="radio" name="service" value="مشاوره مکمل ورزشی"><span>مکمل ورزشی</span></label>
+          <label class="choice"><input type="radio" name="service" value="مشاوره مکمل ورزشی"><span>مشاوره مکمل ورزشی</span></label>
         </div>
       </fieldset>
 
       <div class="field">
-        <label for="age"><span class="num">۳</span>چند سالته؟</label>
-        <input id="age" name="age" type="number" inputmode="numeric" min="12" max="100" placeholder="سن به سال" required>
+        <label class="field-title" for="age"><span class="number">۳</span>چند سالته؟</label>
+        <input class="text-input" id="age" name="age" type="number" inputmode="numeric" min="12" max="100" placeholder="مثلاً ۲۵" required>
       </div>
 
       <div class="field">
-        <label for="height"><span class="num">۴</span>قدت چند سانتی‌متره؟</label>
-        <input id="height" name="height" type="number" inputmode="numeric" min="100" max="230" placeholder="مثلاً ۱۷۵" required>
+        <label class="field-title" for="height"><span class="number">۴</span>قدت چند سانتی‌متره؟</label>
+        <input class="text-input" id="height" name="height" type="number" inputmode="numeric" min="100" max="230" placeholder="مثلاً ۱۷۵" required>
       </div>
 
       <div class="field">
-        <label for="weight"><span class="num">۵</span>وزن فعلیت چند کیلوگرمه؟</label>
-        <input id="weight" name="weight" type="number" inputmode="decimal" min="25" max="300" step="0.1" placeholder="مثلاً ۸۰" required>
+        <label class="field-title" for="weight"><span class="number">۵</span>وزن فعلیت چند کیلوگرمه؟</label>
+        <input class="text-input" id="weight" name="weight" type="number" inputmode="decimal" min="25" max="300" step="0.1" placeholder="مثلاً ۸۰" required>
       </div>
 
       <div class="field">
-        <label for="goal"><span class="num">۶</span>وزن هدفت چقدره؟</label>
-        <input id="goal" name="goal" type="text" placeholder="مثلاً ۷۰ کیلو یا هنوز نمی‌دانم" required>
+        <label class="field-title" for="goal"><span class="number">۶</span>وزن هدفت چقدره؟</label>
+        <input class="text-input" id="goal" name="goal" type="text" maxlength="100" placeholder="مثلاً ۷۰ کیلو یا هنوز نمی‌دانم" required>
       </div>
 
       <fieldset class="field">
-        <legend class="legend"><span class="num">۷</span>میزان فعالیت ورزشی‌ات چقدره؟</legend>
+        <legend><span class="number">۷</span>میزان فعالیت ورزشی‌ات چقدره؟</legend>
         <div class="choices">
           <label class="choice"><input type="radio" name="activity" value="کم / بدون ورزش" required><span>کم / بدون ورزش</span></label>
           <label class="choice"><input type="radio" name="activity" value="۱ تا ۲ روز در هفته"><span>۱ تا ۲ روز در هفته</span></label>
@@ -172,85 +160,79 @@
 
       <label class="consent" for="consent">
         <input id="consent" name="consent" type="checkbox" required>
-        <span>با ثبت درخواست موافقم اطلاعاتی که وارد کرده‌ام برای بررسی درخواست و پیگیری مشاوره توسط مربی ذخیره شود. اطلاعات درخواست حداکثر تا ۱۸۰ روز نگهداری می‌شود.</span>
+        <span>موافقم اطلاعاتی که وارد کرده‌ام برای بررسی درخواست و پیگیری مشاوره توسط مربی ذخیره شود. اطلاعات درخواست حداکثر تا ۱۸۰ روز نگهداری می‌شود.</span>
       </label>
 
       <div class="submit-wrap" id="submitWrap">
-        <button type="submit">ثبت درخواست مشاوره رایگان</button>
-        <p class="submit-note">دکمه فقط پس از پاسخ به هر ۷ سؤال نمایش داده می‌شود.</p>
-        <p class="submit-note">برای رسیدن درخواست به مربی، پیام آماده را در روبیکا ارسال کن؛ پاسخ‌ها پیش از ارسال، روی سایت ذخیره نمی‌شوند.</p>
+        <button class="submit" id="submitButton" type="submit">ثبت درخواست مشاوره رایگان</button>
+        <p class="submit-note">دکمه پس از پاسخ به هر ۷ سؤال نمایش داده می‌شود.</p>
       </div>
 
       <div class="status" id="status" aria-live="polite">
-        <strong id="statusTitle">درخواستت با موفقیت ذخیره شد.</strong><br>
-        <span id="copyStatus">پاسخ‌ها در سامانه ثبت شدند. برای ارتباط سریع‌تر می‌توانی پیام روبیکا را هم بفرستی.</span>
-        <div class="actions">
-          <a id="openRubika" href="https://rubika.ir/varzesh_calisthenics" target="_blank" rel="noopener">ارسال پیام در روبیکا</a>
+        <div class="status-title" id="statusTitle">درخواستت با موفقیت ذخیره شد.</div>
+        <div id="copyStatus">پاسخ‌ها در سامانه ثبت شدند.</div>
+        <div class="status-actions">
+          <a id="openRubika" href="https://rubika.ir/varzesh_calisthenics" target="_blank" rel="noopener">باز کردن روبیکا</a>
           <button type="button" id="copyAgain">کپی دوباره پاسخ‌ها</button>
         </div>
-        <textarea id="messageText" readonly aria-label="متن آماده ارسال به روبیکا"></textarea>
+        <textarea id="messageText" readonly aria-label="متن آماده ارسال در روبیکا"></textarea>
       </div>
     </form>
-    <p class="foot">آقای عضله | مشاوره تخصصی و اصولی تناسب اندام<br><a href="https://rubika.ir/varzesh_calisthenics" target="_blank" rel="noopener">ارتباط در روبیکا: @varzesh_calisthenics</a></p>
+
+    <footer class="footer">
+      آقای عضله · مشاوره تخصصی و اصولی تناسب اندام<br>
+      <a href="https://rubika.ir/varzesh_calisthenics" target="_blank" rel="noopener">ارتباط در روبیکا: @varzesh_calisthenics</a><br>
+      <a class="coach-link" href="/admin.html" rel="nofollow">ورود مربی · دیدن مشتری‌ها</a>
+    </footer>
   </main>
+
 <script>
 (() => {
+  'use strict';
   const form = document.getElementById('consultForm');
-  const fields = ['rubika','service','age','height','weight','goal','activity'];
+  const questionNames = ['rubika','service','age','height','weight','goal','activity'];
   const progressText = document.getElementById('progressText');
   const progressBar = document.getElementById('progressBar');
   const submitWrap = document.getElementById('submitWrap');
+  const submitButton = document.getElementById('submitButton');
   const status = document.getElementById('status');
   const statusTitle = document.getElementById('statusTitle');
-  const messageText = document.getElementById('messageText');
   const copyStatus = document.getElementById('copyStatus');
-  const openRubika = document.getElementById('openRubika');
-  const submitButton = form.querySelector('button[type="submit"]');
+  const messageText = document.getElementById('messageText');
   let savedMessage = '';
 
-  const getVal = name => {
+  const getValue = name => {
     const el = form.elements[name];
     if (!el) return '';
     if (el instanceof RadioNodeList) return el.value || '';
-    return (el.value || '').trim();
+    return String(el.value || '').trim();
   };
-  const answered = () => fields.filter(name => getVal(name)).length;
 
-  function updateProgress() {
-    const n = answered();
-    progressText.textContent = n.toLocaleString('fa-IR') + ' از ۷ پاسخ';
-    progressBar.style.width = (n / 7 * 100) + '%';
-    submitWrap.classList.toggle('show', n === 7);
+  function answeredCount() {
+    return questionNames.filter(name => Boolean(getValue(name))).length;
   }
 
-  async function copyMessage() {
-    try {
-      await navigator.clipboard.writeText(savedMessage);
-      messageText.style.display = 'none';
-      return true;
-    } catch (_) {
-      messageText.style.display = 'block';
-      messageText.value = savedMessage;
-      messageText.focus();
-      messageText.select();
-      try { return document.execCommand('copy'); } catch (_) { return false; }
-    }
+  function updateProgress() {
+    const count = answeredCount();
+    progressText.textContent = count.toLocaleString('fa-IR') + ' از ۷ پاسخ';
+    progressBar.style.width = (count / 7 * 100) + '%';
+    submitWrap.classList.toggle('show', count === 7);
   }
 
   function createRequestId() {
     if (window.crypto && typeof window.crypto.randomUUID === 'function') return window.crypto.randomUUID();
-    return 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, function(c) {
+    return 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, c => {
       const r = Math.floor(Math.random() * 16);
       return (c === 'x' ? r : ((r & 3) | 8)).toString(16);
     });
   }
 
   function makeMessage(data) {
-    const rubikaId = data.rubika.startsWith('@') ? data.rubika : '@' + data.rubika;
+    const id = data.rubika.startsWith('@') ? data.rubika : '@' + data.rubika;
     return [
       '🏋️ درخواست مشاوره رایگان آقای عضله',
       '━━━━━━━━━━━━━━',
-      'آیدی روبیکا: ' + rubikaId,
+      'آیدی روبیکا: ' + id,
       'نوع مشاوره: ' + data.service,
       'سن: ' + data.age + ' سال',
       'قد: ' + data.height + ' سانتی‌متر',
@@ -262,70 +244,68 @@
     ].join('\n');
   }
 
+  async function copyMessage() {
+    try {
+      await navigator.clipboard.writeText(savedMessage);
+      messageText.style.display = 'none';
+      return true;
+    } catch (_) {
+      messageText.value = savedMessage;
+      messageText.style.display = 'block';
+      messageText.focus();
+      messageText.select();
+      try { return document.execCommand('copy'); } catch (_) { return false; }
+    }
+  }
+
   form.addEventListener('input', updateProgress);
   form.addEventListener('change', updateProgress);
 
   form.addEventListener('submit', async event => {
     event.preventDefault();
     updateProgress();
-    if (answered() !== 7 || !form.reportValidity()) return;
+    if (answeredCount() !== 7) return;
+    if (!form.reportValidity()) return;
 
-    const data = {
-      rubika: getVal('rubika'),
-      service: getVal('service'),
-      age: getVal('age'),
-      height: getVal('height'),
-      weight: getVal('weight'),
-      goal: getVal('goal'),
-      activity: getVal('activity')
-    };
-
+    const data = Object.fromEntries(questionNames.map(name => [name, getValue(name)]));
     submitButton.disabled = true;
-    submitButton.textContent = 'در حال ثبت امن درخواست...';
-    status.classList.remove('error');
-    status.classList.remove('show');
-    openRubika.style.display = 'none';
+    submitButton.textContent = 'در حال ثبت درخواست...';
+    status.classList.remove('show','error');
 
     try {
       const response = await fetch('/api/leads', {
         method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
+        headers: {'Content-Type':'application/json'},
+        cache: 'no-store',
         body: JSON.stringify({
           ...data,
           consent: document.getElementById('consent').checked,
-          website: getVal('website'),
+          website: getValue('website'),
           requestId: createRequestId()
         })
       });
       const result = await response.json().catch(() => ({}));
       if (!response.ok) {
-        if (result.error === 'storage_unavailable') throw new Error('ذخیره‌سازی هنوز در سرور فعال نشده است. لطفاً کمی بعد دوباره تلاش کن.');
-        if (result.error === 'rate_limited') throw new Error('از این اتصال در یک ساعت اخیر درخواست‌های زیادی ثبت شده است؛ لطفاً کمی بعد دوباره تلاش کن.');
-        if (result.error === 'invalid_input') throw new Error('بعضی پاسخ‌ها معتبر نیستند. لطفاً پاسخ‌ها را بررسی کن.');
+        if (result.error === 'storage_unavailable') throw new Error('ذخیره‌سازی سرور هنوز آماده نیست. لطفاً بعداً دوباره تلاش کن.');
+        if (result.error === 'rate_limited') throw new Error('تعداد درخواست‌ها از این اتصال زیاد بوده است. کمی بعد دوباره تلاش کن.');
+        if (result.error === 'invalid_input') throw new Error('یکی از پاسخ‌ها معتبر نیست. لطفاً فرم را بررسی کن.');
         throw new Error('ثبت درخواست انجام نشد. اتصال اینترنت را بررسی و دوباره تلاش کن.');
       }
-
       savedMessage = makeMessage(data);
       messageText.value = savedMessage;
       statusTitle.textContent = 'درخواستت با موفقیت ذخیره شد.';
       status.classList.add('show');
-      openRubika.style.display = 'flex';
-      copyStatus.textContent = 'پاسخ‌ها در سامانه ثبت شدند. در صورت تمایل، متن آماده را هم در روبیکا ارسال کن.';
       const copied = await copyMessage();
-      if (copied) {
-        copyStatus.textContent = 'درخواست ذخیره شد و متن پیام هم کپی شد. برای ارسال پیام تکمیلی، روبیکا را باز کن.';
-      } else {
-        copyStatus.textContent = 'درخواست ذخیره شد. متن پیام را از کادر زیر کپی کن و در روبیکا بفرست.';
-        messageText.style.display = 'block';
-        messageText.focus();
-        messageText.select();
-      }
-      status.scrollIntoView({ behavior: 'smooth', block: 'center' });
+      copyStatus.textContent = copied
+        ? 'درخواست در سامانه ثبت شد و متن آماده هم کپی شد. در صورت تمایل، آن را در روبیکا برای مربی بفرست.'
+        : 'درخواست در سامانه ثبت شد. متن آماده را از کادر زیر کپی کن و در صورت تمایل برای مربی بفرست.';
+      if (!copied) { messageText.style.display = 'block'; messageText.focus(); messageText.select(); }
+      status.scrollIntoView({behavior:'smooth',block:'center'});
     } catch (error) {
-      statusTitle.textContent = 'در ثبت درخواست مشکلی پیش آمد.';
+      statusTitle.textContent = 'ثبت درخواست انجام نشد.';
       copyStatus.textContent = error && error.message ? error.message : 'لطفاً دوباره تلاش کن.';
-      status.classList.add('error', 'show');
-      status.scrollIntoView({ behavior: 'smooth', block: 'center' });
+      status.classList.add('show','error');
+      status.scrollIntoView({behavior:'smooth',block:'center'});
     } finally {
       submitButton.disabled = false;
       submitButton.textContent = 'ثبت درخواست مشاوره رایگان';
@@ -335,15 +315,10 @@
   document.getElementById('copyAgain').addEventListener('click', async () => {
     if (!savedMessage) return;
     const copied = await copyMessage();
-    if (copied) {
-      copyStatus.textContent = 'متن پیام دوباره کپی شد؛ آن را در روبیکا جای‌گذاری و ارسال کن.';
-      document.getElementById('copyAgain').textContent = 'کپی شد';
-      setTimeout(() => { document.getElementById('copyAgain').textContent = 'کپی دوباره پاسخ‌ها'; }, 1800);
-    } else {
-      copyStatus.textContent = 'متن داخل کادر زیر انتخاب شده است؛ آن را کپی کن.';
-    }
+    copyStatus.textContent = copied
+      ? 'متن پیام کپی شد؛ حالا می‌توانی آن را در روبیکا جای‌گذاری کنی.'
+      : 'متن در کادر زیر انتخاب شده است؛ آن را کپی کن.';
   });
-
   updateProgress();
 })();
 </script>
