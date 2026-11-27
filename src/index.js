@@ -117,7 +117,9 @@ async function handleSubmit(request, env) {
 
   const now = Date.now();
   const uuid = crypto.randomUUID();
-  const id = "lead:" + String(now).padStart(13, "0") + ":" + uuid;
+  // Reverse the timestamp so KV lexicographic listing returns newest requests first.
+  const reverseTimestamp = 9999999999999 - now;
+  const id = "lead:" + String(reverseTimestamp).padStart(13, "0") + ":" + uuid;
   const record = {
     id: id,
     createdAt: new Date(now).toISOString(),
