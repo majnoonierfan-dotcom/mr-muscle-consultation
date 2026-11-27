@@ -47,7 +47,7 @@
     button:active{transform:scale(.99)}
     .submit-note{font-size:11px;color:#aeb4bc;text-align:center;margin:9px 0 0}
     .status{display:none;margin-top:15px;padding:13px;border-radius:12px;background:#102719;border:1px solid #237d45;color:#c8f7d8;font-size:13px}
-    .status.show{display:block}
+    .status.show{display:block}\n    .status.error{background:#351515;border-color:#a83c3c;color:#ffd3d3}\n    .consent{display:flex;align-items:flex-start;gap:10px;margin:0 0 15px;padding:12px;border:1px solid #484d54;border-radius:12px;background:#101215;color:#cfd3d8;font-size:12px;line-height:1.8}\n    .consent input{width:20px;min-width:20px;min-height:20px;height:20px;flex:0 0 20px;margin:2px 0 0;accent-color:#ffca05}\n    .trap{position:absolute!important;left:-10000px!important;top:auto!important;width:1px!important;height:1px!important;overflow:hidden!important}
     .actions{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-top:12px}
     .actions a,.actions button{min-height:46px;border-radius:11px;display:flex;align-items:center;justify-content:center;text-decoration:none;font-size:13px;padding:8px}
     .actions a{background:#1c8e48;color:white;font-weight:800}
@@ -76,6 +76,7 @@
     </section>
 
     <form class="card" id="consultForm" novalidate>
+      <div class="trap" aria-hidden="true"><label>این قسمت را خالی بگذارید<input name="website" type="text" tabindex="-1" autocomplete="off"></label></div>
       <div class="progress-head"><span>تکمیل فرم مشاوره</span><strong id="progressText">۰ از ۷ پاسخ</strong></div>
       <div class="bar"><span id="progressBar"></span></div>
 
@@ -126,6 +127,11 @@
         </div>
       </fieldset>
 
+      <label class="consent" for="consent">
+        <input id="consent" name="consent" type="checkbox" required>
+        <span>با ثبت درخواست موافقم اطلاعاتی که وارد کرده‌ام برای بررسی درخواست و پیگیری مشاوره توسط مربی ذخیره شود. اطلاعات درخواست حداکثر تا ۱۸۰ روز نگهداری می‌شود.</span>
+      </label>
+
       <div class="submit-wrap" id="submitWrap">
         <button type="submit">ثبت درخواست مشاوره رایگان</button>
         <p class="submit-note">دکمه فقط پس از پاسخ به هر ۷ سؤال نمایش داده می‌شود.</p>
@@ -133,10 +139,10 @@
       </div>
 
       <div class="status" id="status" aria-live="polite">
-        <strong>درخواستت آماده ارسال است.</strong><br>
-        <span id="copyStatus">متن پاسخ‌ها را در گفت‌وگوی روبیکا برای مربی جای‌گذاری و ارسال کن.</span>
+        <strong id="statusTitle">درخواستت با موفقیت ذخیره شد.</strong><br>
+        <span id="copyStatus">پاسخ‌ها در سامانه ثبت شدند. برای ارتباط سریع‌تر می‌توانی پیام روبیکا را هم بفرستی.</span>
         <div class="actions">
-          <a href="https://rubika.ir/varzesh_calisthenics" target="_blank" rel="noopener">باز کردن روبیکا</a>
+          <a id="openRubika" href="https://rubika.ir/varzesh_calisthenics" target="_blank" rel="noopener">ارسال پیام در روبیکا</a>
           <button type="button" id="copyAgain">کپی دوباره پاسخ‌ها</button>
         </div>
         <textarea id="messageText" readonly aria-label="متن آماده ارسال به روبیکا"></textarea>
@@ -152,8 +158,11 @@
   const progressBar = document.getElementById('progressBar');
   const submitWrap = document.getElementById('submitWrap');
   const status = document.getElementById('status');
+  const statusTitle = document.getElementById('statusTitle');
   const messageText = document.getElementById('messageText');
   const copyStatus = document.getElementById('copyStatus');
+  const openRubika = document.getElementById('openRubika');
+  const submitButton = form.querySelector('button[type="submit"]');
   let savedMessage = '';
 
   const getVal = name => {
@@ -163,18 +172,18 @@
     return (el.value || '').trim();
   };
   const answered = () => fields.filter(name => getVal(name)).length;
-  function updateProgress(){
+
+  function updateProgress() {
     const n = answered();
-    progressText.textContent = `${n.toLocaleString('fa-IR')} از ۷ پاسخ`;
-    progressBar.style.width = `${n / 7 * 100}%`;
+    progressText.textContent = n.toLocaleString('fa-IR') + ' از ۷ پاسخ';
+    progressBar.style.width = (n / 7 * 100) + '%';
     submitWrap.classList.toggle('show', n === 7);
-    if (n !== 7) status.classList.remove('show');
   }
-  form.addEventListener('input', updateProgress);
-  form.addEventListener('change', updateProgress);
-  async function copyMessage(){
+
+  async function copyMessage() {
     try {
       await navigator.clipboard.writeText(savedMessage);
+      messageText.style.display = 'none';
       return true;
     } catch (_) {
       messageText.style.display = 'block';
@@ -184,53 +193,105 @@
       try { return document.execCommand('copy'); } catch (_) { return false; }
     }
   }
+
+  function makeMessage(data) {
+    const rubikaId = data.rubika.startsWith('@') ? data.rubika : '@' + data.rubika;
+    return [
+      '🏋️ درخواست مشاوره رایگان آقای عضله',
+      '━━━━━━━━━━━━━━',
+      'آیدی روبیکا: ' + rubikaId,
+      'نوع مشاوره: ' + data.service,
+      'سن: ' + data.age + ' سال',
+      'قد: ' + data.height + ' سانتی‌متر',
+      'وزن فعلی: ' + data.weight + ' کیلوگرم',
+      'وزن هدف: ' + data.goal,
+      'فعالیت ورزشی: ' + data.activity,
+      '━━━━━━━━━━━━━━',
+      'لطفاً برای مشاوره راهنمایی‌ام کنید.'
+    ].join('\n');
+  }
+
+  form.addEventListener('input', updateProgress);
+  form.addEventListener('change', updateProgress);
+
   form.addEventListener('submit', async event => {
     event.preventDefault();
     updateProgress();
     if (answered() !== 7 || !form.reportValidity()) return;
+
     const data = {
-      rubika:getVal('rubika'), service:getVal('service'), age:getVal('age'),
-      height:getVal('height'), weight:getVal('weight'), goal:getVal('goal'), activity:getVal('activity')
+      rubika: getVal('rubika'),
+      service: getVal('service'),
+      age: getVal('age'),
+      height: getVal('height'),
+      weight: getVal('weight'),
+      goal: getVal('goal'),
+      activity: getVal('activity')
     };
-    savedMessage = [
-      '🏋️ درخواست مشاوره رایگان آقای عضله',
-      '━━━━━━━━━━━━━━',
-      `آیدی روبیکا: ${data.rubika.startsWith('@') ? data.rubika : '@'+data.rubika}`,
-      `نوع مشاوره: ${data.service}`,
-      `سن: ${data.age} سال`,
-      `قد: ${data.height} سانتی‌متر`,
-      `وزن فعلی: ${data.weight} کیلوگرم`,
-      `وزن هدف: ${data.goal}`,
-      `فعالیت ورزشی: ${data.activity}`,
-      '━━━━━━━━━━━━━━',
-      'لطفاً برای مشاوره راهنمایی‌ام کنید.'
-    ].join('\n');
-    messageText.value = savedMessage;
-    status.classList.add('show');
-    // Open synchronously in the click handler so mobile browsers do not block the tab.
-    window.open('https://rubika.ir/varzesh_calisthenics','_blank','noopener');
-    const copied = await copyMessage();
-    if (copied) {
-      copyStatus.textContent = 'پاسخ‌ها کپی شد. حالا در گفت‌وگوی روبیکا آن‌ها را جای‌گذاری و ارسال کن.';
-    } else {
-      copyStatus.textContent = 'کپی خودکار انجام نشد؛ متن انتخاب‌شده را کپی کن و در روبیکا بفرست.';
-      messageText.style.display = 'block';
-      messageText.focus(); messageText.select();
+
+    submitButton.disabled = true;
+    submitButton.textContent = 'در حال ثبت امن درخواست...';
+    status.classList.remove('error');
+    status.classList.remove('show');
+    openRubika.style.display = 'none';
+
+    try {
+      const response = await fetch('/api/leads', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          ...data,
+          consent: document.getElementById('consent').checked,
+          website: getVal('website'),
+          requestId: (window.crypto && crypto.randomUUID) ? crypto.randomUUID() : (Date.now().toString(36) + Math.random().toString(36).slice(2))
+        })
+      });
+      const result = await response.json().catch(() => ({}));
+      if (!response.ok) {
+        if (result.error === 'storage_unavailable') throw new Error('ذخیره‌سازی هنوز در سرور فعال نشده است. لطفاً کمی بعد دوباره تلاش کن.');
+        if (result.error === 'invalid_input') throw new Error('بعضی پاسخ‌ها معتبر نیستند. لطفاً پاسخ‌ها را بررسی کن.');
+        throw new Error('ثبت درخواست انجام نشد. اتصال اینترنت را بررسی و دوباره تلاش کن.');
+      }
+
+      savedMessage = makeMessage(data);
+      messageText.value = savedMessage;
+      statusTitle.textContent = 'درخواستت با موفقیت ذخیره شد.';
+      status.classList.add('show');
+      openRubika.style.display = 'flex';
+      copyStatus.textContent = 'پاسخ‌ها در سامانه ثبت شدند. در صورت تمایل، متن آماده را هم در روبیکا ارسال کن.';
+      const copied = await copyMessage();
+      if (copied) {
+        copyStatus.textContent = 'درخواست ذخیره شد و متن پیام هم کپی شد. برای ارسال پیام تکمیلی، روبیکا را باز کن.';
+      } else {
+        copyStatus.textContent = 'درخواست ذخیره شد. متن پیام را از کادر زیر کپی کن و در روبیکا بفرست.';
+        messageText.style.display = 'block';
+        messageText.focus();
+        messageText.select();
+      }
+      status.scrollIntoView({ behavior: 'smooth', block: 'center' });
+    } catch (error) {
+      statusTitle.textContent = 'در ثبت درخواست مشکلی پیش آمد.';
+      copyStatus.textContent = error && error.message ? error.message : 'لطفاً دوباره تلاش کن.';
+      status.classList.add('error', 'show');
+      status.scrollIntoView({ behavior: 'smooth', block: 'center' });
+    } finally {
+      submitButton.disabled = false;
+      submitButton.textContent = 'ثبت درخواست مشاوره رایگان';
     }
-    document.querySelector('.status').scrollIntoView({behavior:'smooth',block:'center'});
   });
+
   document.getElementById('copyAgain').addEventListener('click', async () => {
     if (!savedMessage) return;
     const copied = await copyMessage();
     if (copied) {
-      messageText.style.display = 'none';
-      copyStatus.textContent = 'پاسخ‌ها دوباره کپی شد؛ آن‌ها را در روبیکا جای‌گذاری و ارسال کن.';
+      copyStatus.textContent = 'متن پیام دوباره کپی شد؛ آن را در روبیکا جای‌گذاری و ارسال کن.';
       document.getElementById('copyAgain').textContent = 'کپی شد';
-      setTimeout(() => document.getElementById('copyAgain').textContent = 'کپی دوباره پاسخ‌ها', 1800);
+      setTimeout(() => { document.getElementById('copyAgain').textContent = 'کپی دوباره پاسخ‌ها'; }, 1800);
     } else {
-      copyStatus.textContent = 'متن را از کادر زیر به‌صورت دستی کپی کن.';
+      copyStatus.textContent = 'متن داخل کادر زیر انتخاب شده است؛ آن را کپی کن.';
     }
   });
+
   updateProgress();
 })();
 </script>

@@ -1,0 +1,232 @@
+<!doctype html>
+<html lang="fa" dir="rtl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex,nofollow">
+<meta name="theme-color" content="#101010">
+<title>پنل مربی | آقای عضله</title>
+<style>
+:root{color-scheme:dark;--bg:#0b0c0e;--panel:#17191d;--line:#373c43;--gold:#ffca05;--text:#f7f7f7;--muted:#b8bec6;--green:#22c55e;--red:#f87171}
+*{box-sizing:border-box}body{margin:0;background:radial-gradient(ellipse at top,#262216 0,#0b0c0e 48%);color:var(--text);font-family:Tahoma,Arial,sans-serif;line-height:1.8}
+.wrap{width:min(100% - 24px,820px);margin:0 auto;padding:22px 0 48px}.brand{text-align:center;color:var(--gold);font-weight:900;font-size:24px;margin-bottom:5px}h1{font-size:21px;text-align:center;margin:0 0 18px;color:var(--gold)}.panel{background:var(--panel);border:1px solid var(--line);border-radius:18px;padding:18px;margin-bottom:14px;box-shadow:0 12px 35px #0007}
+label{display:block;font-size:13px;color:var(--muted);margin-bottom:7px}input{width:100%;min-height:48px;background:#0b0d0f;border:1px solid #4b515a;border-radius:10px;color:white;padding:10px;font:inherit;direction:ltr;text-align:left}
+button,a.btn{border:0;border-radius:10px;padding:11px 14px;min-height:44px;font:inherit;font-size:13px;font-weight:800;cursor:pointer;text-decoration:none;display:inline-flex;align-items:center;justify-content:center}
+.primary{background:linear-gradient(#ffdf32,#f2b800);color:#191407}.secondary{background:#282d33;color:#fff;border:1px solid #4c535c}.danger{background:#421b1b;color:#ffdada;border:1px solid #813535}.success{background:#12321f;color:#d0f7dc;border:1px solid #28633c}
+.actions{display:flex;gap:8px;flex-wrap:wrap}.muted{color:var(--muted);font-size:12px}.hidden{display:none!important}.message{padding:10px;border:1px solid #5b532e;border-radius:10px;color:#ffe58a;margin-top:12px;font-size:13px}.message.error{border-color:#813535;color:#ffd0d0}.toolbar{display:flex;gap:9px;align-items:center;justify-content:space-between;flex-wrap:wrap}.count{color:var(--gold);font-weight:800;font-size:13px}.lead{background:#101215;border:1px solid var(--line);border-radius:14px;padding:15px;margin-top:12px}.lead-head{display:flex;justify-content:space-between;gap:12px;align-items:center;flex-wrap:wrap;margin-bottom:10px}.lead-title{font-weight:900;color:var(--gold)}.status{font-size:11px;border-radius:30px;padding:3px 10px;background:#38301a;color:#ffdf73}.status.contacted{background:#153822;color:#b9f6c9}.grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:8px}.item{background:#1a1d21;border-radius:9px;padding:8px 10px;min-width:0}.item small{display:block;color:#aeb4bc;font-size:10px}.item strong{font-size:13px;overflow-wrap:anywhere}.lead-actions{display:flex;gap:7px;flex-wrap:wrap;margin-top:11px}.lead-actions button{flex:1}.empty{text-align:center;color:var(--muted);padding:30px 10px}.note{font-size:11px;color:#999;margin:12px 2px 0}@media(max-width:480px){.grid{grid-template-columns:1fr}.panel{padding:14px}.lead-actions button{flex:1 1 42%}}
+</style>
+</head>
+<body>
+<main class="wrap">
+  <div class="brand">آقای عضله</div>
+  <h1>پنل خصوصی درخواست‌های مشاوره</h1>
+  <section class="panel" id="loginPanel">
+    <label for="adminToken">رمز دسترسی مربی</label>
+    <input id="adminToken" type="password" autocomplete="current-password" placeholder="رمز محرمانه‌ای که در Cloudflare تنظیم شده">
+    <div class="actions" style="margin-top:12px"><button class="primary" id="loginButton">ورود به پنل</button></div>
+    <div class="message hidden" id="loginMessage" role="alert"></div>
+    <p class="note">رمز فقط در نشست فعلی مرورگر نگهداری می‌شود و در این صفحه یا مخزن کد ذخیره نمی‌شود.</p>
+  </section>
+  <section class="hidden" id="dashboard">
+    <div class="panel">
+      <div class="toolbar">
+        <div><div class="count" id="countText">درخواست‌ها</div><div class="muted">درخواست‌های ثبت‌شده در فضای ذخیره‌سازی امن</div></div>
+        <div class="actions"><button class="secondary" id="refreshButton">به‌روزرسانی</button><button class="secondary" id="logoutButton">خروج</button></div>
+      </div>
+      <div class="message hidden" id="dashboardMessage"></div>
+    </div>
+    <div id="leads"></div>
+    <div class="actions" style="margin-top:12px"><button class="secondary hidden" id="olderButton">درخواست‌های قدیمی‌تر</button></div>
+    <p class="note">اطلاعات هر درخواست حداکثر ۱۸۰ روز نگهداری می‌شود. درخواست‌های حذف‌شده از پنل قابل بازیابی نیستند.</p>
+  </section>
+</main>
+<script>
+(() => {
+  const loginPanel = document.getElementById('loginPanel');
+  const dashboard = document.getElementById('dashboard');
+  const tokenInput = document.getElementById('adminToken');
+  const loginMessage = document.getElementById('loginMessage');
+  const dashboardMessage = document.getElementById('dashboardMessage');
+  const leadsBox = document.getElementById('leads');
+  const countText = document.getElementById('countText');
+  const olderButton = document.getElementById('olderButton');
+  let token = '';
+  let nextCursor = null;
+  let shown = 0;
+
+  function showMessage(el, message, error) {
+    el.textContent = message;
+    el.classList.toggle('error', Boolean(error));
+    el.classList.remove('hidden');
+  }
+  function clearMessage(el) { el.textContent = ''; el.classList.add('hidden'); }
+
+  async function api(path, options) {
+    const opts = options || {};
+    const headers = Object.assign({ 'Authorization': 'Bearer ' + token }, opts.headers || {});
+    if (opts.body) headers['Content-Type'] = 'application/json';
+    const response = await fetch(path, Object.assign({}, opts, { headers: headers, cache: 'no-store' }));
+    const data = await response.json().catch(() => ({}));
+    if (!response.ok) {
+      if (response.status === 401) throw new Error('رمز دسترسی درست نیست.');
+      if (data.error === 'admin_not_configured') throw new Error('رمز مدیریتی ADMIN_TOKEN هنوز در تنظیمات Cloudflare ثبت نشده است.');
+      if (data.error === 'storage_unavailable') throw new Error('اتصال فضای ذخیره‌سازی LEADS برقرار نیست.');
+      throw new Error('درخواست انجام نشد. صفحه را تازه‌سازی کن و دوباره تلاش کن.');
+    }
+    return data;
+  }
+
+  function addItem(parent, label, value) {
+    const item = document.createElement('div');
+    item.className = 'item';
+    const small = document.createElement('small');
+    small.textContent = label;
+    const strong = document.createElement('strong');
+    strong.textContent = value === null || value === undefined || value === '' ? '—' : String(value);
+    item.append(small, strong);
+    parent.appendChild(item);
+  }
+
+  function addButton(parent, label, className, action) {
+    const button = document.createElement('button');
+    button.type = 'button';
+    button.className = className;
+    button.textContent = label;
+    button.addEventListener('click', action);
+    parent.appendChild(button);
+    return button;
+  }
+
+  function leadCard(lead) {
+    const card = document.createElement('article');
+    card.className = 'lead';
+    const head = document.createElement('div');
+    head.className = 'lead-head';
+    const title = document.createElement('div');
+    title.className = 'lead-title';
+    title.textContent = 'درخواست ' + new Date(lead.createdAt).toLocaleString('fa-IR');
+    const status = document.createElement('span');
+    status.className = 'status' + (lead.status === 'contacted' ? ' contacted' : '');
+    status.textContent = lead.status === 'contacted' ? 'پیگیری شد' : 'جدید';
+    head.append(title, status);
+    const grid = document.createElement('div');
+    grid.className = 'grid';
+    addItem(grid, 'آیدی روبیکا', lead.rubika);
+    addItem(grid, 'نوع مشاوره', lead.service);
+    addItem(grid, 'سن', lead.age + ' سال');
+    addItem(grid, 'قد', lead.height + ' سانتی‌متر');
+    addItem(grid, 'وزن فعلی', lead.weight + ' کیلوگرم');
+    addItem(grid, 'وزن هدف', lead.goal);
+    addItem(grid, 'فعالیت ورزشی', lead.activity);
+    const actions = document.createElement('div');
+    actions.className = 'lead-actions';
+    addButton(actions, 'کپی آیدی روبیکا', 'secondary', async () => {
+      try { await navigator.clipboard.writeText(lead.rubika); showMessage(dashboardMessage, 'آیدی روبیکا کپی شد.', false); }
+      catch (_) { showMessage(dashboardMessage, 'کپی خودکار ممکن نیست؛ آیدی: ' + lead.rubika, true); }
+    });
+    addButton(actions, lead.status === 'contacted' ? 'بازگرداندن به جدید' : 'علامت‌گذاری: پیگیری شد', 'success', async event => {
+      const button = event.currentTarget;
+      button.disabled = true;
+      try {
+        await api('/api/admin/leads/' + encodeURIComponent(lead.id), {
+          method: 'PUT',
+          body: JSON.stringify({ status: lead.status === 'contacted' ? 'new' : 'contacted' })
+        });
+        await loadLeads(false);
+      } catch (error) { showMessage(dashboardMessage, error.message, true); button.disabled = false; }
+    });
+    addButton(actions, 'حذف درخواست', 'danger', async event => {
+      if (!window.confirm('این درخواست برای همیشه حذف شود؟')) return;
+      const button = event.currentTarget;
+      button.disabled = true;
+      try {
+        await api('/api/admin/leads/' + encodeURIComponent(lead.id), { method: 'DELETE' });
+        await loadLeads(false);
+        showMessage(dashboardMessage, 'درخواست حذف شد.', false);
+      } catch (error) { showMessage(dashboardMessage, error.message, true); button.disabled = false; }
+    });
+    card.append(head, grid, actions);
+    return card;
+  }
+
+  async function loadLeads(append) {
+    clearMessage(dashboardMessage);
+    const query = new URLSearchParams({ limit: '50' });
+    if (append && nextCursor) query.set('cursor', nextCursor);
+    const data = await api('/api/admin/leads?' + query.toString());
+    if (!append) {
+      leadsBox.replaceChildren();
+      shown = 0;
+    }
+    data.leads.forEach(lead => leadsBox.appendChild(leadCard(lead)));
+    shown += data.leads.length;
+    nextCursor = data.cursor || null;
+    olderButton.classList.toggle('hidden', !nextCursor);
+    countText.textContent = shown.toLocaleString('fa-IR') + ' درخواست در این فهرست';
+    if (!shown) {
+      const empty = document.createElement('div');
+      empty.className = 'panel empty';
+      empty.textContent = 'هنوز درخواستی ثبت نشده است.';
+      leadsBox.appendChild(empty);
+    }
+  }
+
+  async function login(candidate) {
+    token = candidate;
+    const data = await api('/api/admin/leads?limit=1');
+    sessionStorage.setItem('mrMuscleAdminToken', token);
+    loginPanel.classList.add('hidden');
+    dashboard.classList.remove('hidden');
+    await loadLeads(false);
+  }
+
+  document.getElementById('loginButton').addEventListener('click', async () => {
+    clearMessage(loginMessage);
+    const candidate = tokenInput.value.trim();
+    if (candidate.length < 32) {
+      showMessage(loginMessage, 'رمز دسترسی معتبر نیست.', true);
+      return;
+    }
+    const button = document.getElementById('loginButton');
+    button.disabled = true;
+    try { await login(candidate); }
+    catch (error) { token = ''; showMessage(loginMessage, error.message, true); }
+    finally { button.disabled = false; }
+  });
+
+  document.getElementById('refreshButton').addEventListener('click', async () => {
+    try { await loadLeads(false); }
+    catch (error) { showMessage(dashboardMessage, error.message, true); }
+  });
+  olderButton.addEventListener('click', async () => {
+    olderButton.disabled = true;
+    try { await loadLeads(true); }
+    catch (error) { showMessage(dashboardMessage, error.message, true); }
+    finally { olderButton.disabled = false; }
+  });
+
+  function logout() {
+    sessionStorage.removeItem('mrMuscleAdminToken');
+    token = '';
+    nextCursor = null;
+    dashboard.classList.add('hidden');
+    loginPanel.classList.remove('hidden');
+    tokenInput.value = '';
+    tokenInput.focus();
+  }
+  document.getElementById('logoutButton').addEventListener('click', logout);
+
+  const saved = sessionStorage.getItem('mrMuscleAdminToken');
+  if (saved) {
+    login(saved).catch(error => {
+      logout();
+      showMessage(loginMessage, error.message, true);
+    });
+  }
+  tokenInput.addEventListener('keydown', event => {
+    if (event.key === 'Enter') document.getElementById('loginButton').click();
+  });
+})();
+</script>
+</body>
+</html>
