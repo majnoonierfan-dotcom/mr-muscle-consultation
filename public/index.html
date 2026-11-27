@@ -57,10 +57,6 @@
     .actions a{background:#1c8e48;color:white;font-weight:800}
     .actions button{background:#292d32;color:#fff;border:1px solid #4b5159;box-shadow:none}
     textarea{width:100%;margin-top:12px;min-height:120px;resize:vertical;background:#090a0b;border:1px solid #3f454d;border-radius:10px;padding:10px;color:#eee;font:12px/1.9 Tahoma,Arial,sans-serif;display:none}
-    .copy-instruction{margin:18px 0 14px;padding:18px 16px;border:2px solid var(--yellow);border-radius:16px;background:linear-gradient(145deg,#292313,#15130e);box-shadow:0 10px 26px #0008;text-align:center}
-    .copy-instruction strong{display:block;color:var(--yellow);font-size:19px;font-weight:1000;line-height:1.7;margin-bottom:8px}
-    .copy-instruction p{margin:0;color:#fff;font-size:15px;font-weight:800;line-height:2}
-    .copy-instruction .copy-sub{margin-top:8px;color:#e8d89a;font-size:13px;font-weight:600}
     .foot{text-align:center;color:#8d939b;font-size:11px;margin:16px 0 0}
     .foot a{color:#ffda36;text-decoration:none}
     @media(max-width:390px){.choices{grid-template-columns:1fr}.card{padding:15px 12px}h1{font-size:21px}.wrap{width:min(100% - 18px,680px)}}
@@ -143,7 +139,7 @@
       <div class="submit-wrap" id="submitWrap">
         <button type="submit">ثبت درخواست مشاوره رایگان</button>
         <p class="submit-note">دکمه فقط پس از پاسخ به هر ۷ سؤال نمایش داده می‌شود.</p>
-        <p class="submit-note">پس از ثبت درخواست، متن آمادهٔ پاسخ‌ها نیز کپی می‌شود تا آن را در پیام خصوصی مربی ارسال کنی.</p>
+        <p class="submit-note">برای رسیدن درخواست به مربی، پیام آماده را در روبیکا ارسال کن؛ پاسخ‌ها پیش از ارسال، روی سایت ذخیره نمی‌شوند.</p>
       </div>
 
       <div class="status" id="status" aria-live="polite">
@@ -156,11 +152,6 @@
         <textarea id="messageText" readonly aria-label="متن آماده ارسال به روبیکا"></textarea>
       </div>
     </form>
-    <section class="copy-instruction" aria-label="راهنمای ارسال پاسخ‌ها به مربی">
-      <strong>نکتهٔ مهم؛ ارسال پیام به مربی</strong>
-      <p>پس از پاسخ‌دادن به هر ۷ سؤال و ثبت درخواست، متن پاسخ‌های شما به‌صورت خودکار کپی می‌شود. سپس وارد روبیکا شوید، گفت‌وگوی خصوصی مربی را باز کنید، متن کپی‌شده را جای‌گذاری (Paste) و ارسال کنید.</p>
-      <p class="copy-sub">اگر کپی خودکار انجام نشد، متن آماده در کادر نمایش داده می‌شود؛ آن را دستی کپی کرده و برای مربی بفرستید.</p>
-    </section>
     <p class="foot">آقای عضله | مشاوره تخصصی و اصولی تناسب اندام<br><a href="https://rubika.ir/varzesh_calisthenics" target="_blank" rel="noopener">ارتباط در روبیکا: @varzesh_calisthenics</a></p>
   </main>
 <script>
@@ -283,7 +274,7 @@
       copyStatus.textContent = 'پاسخ‌ها در سامانه ثبت شدند. در صورت تمایل، متن آماده را هم در روبیکا ارسال کن.';
       const copied = await copyMessage();
       if (copied) {
-        copyStatus.textContent = 'درخواست ذخیره شد و متن پیام کپی شد. روبیکا را باز کن، پیام را در گفت‌وگوی خصوصی مربی جای‌گذاری و ارسال کن.';
+        copyStatus.textContent = 'درخواست ذخیره شد و متن پیام هم کپی شد. برای ارسال پیام تکمیلی، روبیکا را باز کن.';
       } else {
         copyStatus.textContent = 'درخواست ذخیره شد. متن پیام را از کادر زیر کپی کن و در روبیکا بفرست.';
         messageText.style.display = 'block';
