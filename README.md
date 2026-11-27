@@ -15,9 +15,9 @@
 ## انتشار Worker جدید
 1. در Cloudflare برو به **Workers & Pages** و گزینه **Create application** را بزن.
 2. **Connect to Git** را انتخاب کن و مخزن `majnoonierfan-dotcom/mr-muscle-consultation` را وصل کن.
-3. شاخه `fresh-mobile-v2` را انتخاب کن. مسیر ریشه پروژه همان ریشه مخزن است.
+3. شاخه `fresh-mobile-v2` را به‌عنوان شاخهٔ اصلی انتشار (Production branch) انتخاب کن؛ نه `main`. مسیر ریشه پروژه همان ریشه مخزن است.
 4. دستور انتشار را `npx wrangler deploy` قرار بده و Worker را بساز. تنظیمات Wrangler نام Worker را `mr-muscle-consultation-v2` می‌گذارد.
-5. پیکربندی Wrangler فضای KV با نام binding برابر `LEADS` را درخواست می‌کند. در Workers Builds کلادفلر، namespace مربوطه برای این Worker ساخته می‌شود؛ اگر پنل خواست آن را دستی اضافه کنی، از مسیر **Settings → Bindings → Add → KV Namespace** یک binding با نام دقیق `LEADS` بساز.
+5. فایل Wrangler یک KV binding به نام `LEADS` دارد. هنگام اجرای `wrangler deploy` کلادفلر می‌تواند namespace را خودکار ایجاد کند؛ اگر در انتشار خطای KV دیدی، در **Settings → Bindings → Add → KV Namespace** یک فضای ذخیره‌سازی انتخاب و binding را دقیقاً `LEADS` نام‌گذاری کن.
 6. بعد از اولین انتشار، در **Settings → Variables and Secrets → Add → Secret** یک Secret بساز:
    - نام: `ADMIN_TOKEN`
    - مقدار: یک رمز تصادفی محرمانه با حداقل ۳۲ نویسه
@@ -30,3 +30,10 @@
 
 ## نکته
 ساخت فایل‌ها و شاخه Git به‌تنهایی Worker را در Cloudflare منتشر نمی‌کند. انتشار نهایی و ساخت Secret باید در حساب Cloudflare انجام شود. نسخه قبلی روی شاخه `main` و Worker قبلی دست‌نخورده باقی می‌ماند.
+
+
+## تنظیمات ساخت Workers Builds
+- ریشه پروژه: `/`
+- Build command: خالی (نیازی به build جداگانه نیست)
+- Deploy command: `npx wrangler deploy`
+- نام Worker در داشبورد باید دقیقاً `mr-muscle-consultation-v2` باشد؛ Cloudflare برای اتصال Git، تطابق این نام با مقدار `name` در Wrangler را لازم می‌داند.
