@@ -261,6 +261,7 @@
       const result = await response.json().catch(() => ({}));
       if (!response.ok) {
         if (result.error === 'storage_unavailable') throw new Error('ذخیره‌سازی هنوز در سرور فعال نشده است. لطفاً کمی بعد دوباره تلاش کن.');
+        if (result.error === 'rate_limited') throw new Error('از این اتصال در یک ساعت اخیر درخواست‌های زیادی ثبت شده است؛ لطفاً کمی بعد دوباره تلاش کن.');
         if (result.error === 'invalid_input') throw new Error('بعضی پاسخ‌ها معتبر نیستند. لطفاً پاسخ‌ها را بررسی کن.');
         throw new Error('ثبت درخواست انجام نشد. اتصال اینترنت را بررسی و دوباره تلاش کن.');
       }
