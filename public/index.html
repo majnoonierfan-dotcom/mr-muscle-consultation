@@ -10,8 +10,11 @@
     :root{--bg:#0b0c0e;--panel:#15171a;--panel2:#1d2024;--yellow:#ffca05;--yellow2:#f4b900;--white:#f7f7f7;--muted:#b9bec5;--line:#363a40;--green:#22c55e}
     *{box-sizing:border-box;min-width:0}
     html{width:100%;max-width:100%;overflow-x:hidden}
+    body{width:100% !important;max-width:100% !important;min-width:0 !important;overflow-x:hidden !important}
+    .hero-card,.guide,.card{width:100% !important;max-width:none !important;margin-left:0 !important;margin-right:0 !important}
+    .field,.choices,.consent,.submit-wrap,input,select,textarea,button{max-width:100% !important}
     body{width:100%;max-width:100%;overflow-x:hidden;margin:0;background:radial-gradient(ellipse at top,#24211a 0,#0b0c0e 45%);color:var(--white);font-family:Tahoma,Arial,sans-serif;line-height:1.8;min-height:100vh}
-    .wrap{width:100%;max-width:680px;margin:0 auto;padding:18px 12px 42px}
+    .wrap{display:block;width:100% !important;max-width:none !important;margin:0 !important;padding:14px 12px 36px !important;}
     .brand{text-align:center;color:var(--yellow);font-weight:900;font-size:23px;letter-spacing:-.5px;margin:4px 0 12px}
     .hero-card{position:relative;display:flex;align-items:center;justify-content:space-between;gap:10px;min-height:150px;padding:16px;overflow:hidden;border-radius:18px;border:1px solid #625126;background:radial-gradient(circle at 15% 20%,#59430e 0,transparent 42%),linear-gradient(135deg,#252016,#111214 72%);box-shadow:0 14px 40px #0009}
     .hero-copy{display:flex;flex:1 1 0;flex-direction:column;gap:5px;min-width:0;max-width:none;overflow-wrap:anywhere}
