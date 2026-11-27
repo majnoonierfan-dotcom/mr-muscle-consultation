@@ -65,6 +65,14 @@
     textarea{width:100%;margin-top:12px;min-height:120px;resize:vertical;background:#090a0b;border:1px solid #3f454d;border-radius:10px;padding:10px;color:#eee;font:12px/1.9 Tahoma,Arial,sans-serif;display:none}
     .foot{text-align:center;color:#8d939b;font-size:11px;margin:16px 0 0}
     .foot a{color:#ffda36;text-decoration:none}
+    /* اصلاح نمایش در گوشی و مرورگرهای موبایلی با viewport غیرمعمول */
+    @media (pointer:coarse){
+      html,body{width:100%;max-width:100%;min-width:0;overflow-x:hidden}
+      .wrap{width:100%;max-width:none;margin:0;padding:14px 12px 36px}
+      .hero-card,.guide,.card{width:100%;max-width:100%}
+      .field,input,select,.choices,.consent,.submit-wrap{max-width:100%}
+      .hero-copy,.hero-copy strong,.hero-copy span,.hero-copy small{overflow-wrap:anywhere}
+    }
     @media(max-width:390px){.choices{grid-template-columns:1fr}.card{padding:15px 12px}h1{font-size:21px}.wrap{padding-left:9px;padding-right:9px}.hero-card{padding:14px 12px}.hero-mark{flex-basis:68px;width:68px;height:68px}}
   </style>
 </head>
