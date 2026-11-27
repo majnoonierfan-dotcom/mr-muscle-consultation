@@ -1,35 +1,37 @@
 # سایت مشاوره آقای عضله
 
-سایت فارسی و راست‌چین فرم مشاوره با ۷ سؤال و پنل خصوصی مربی.
+سایت فارسی و راست‌چین فرم مشاوره با ۷ سؤال، ذخیره‌سازی درخواست‌ها و پنل خصوصی مربی.
 
 ## اجزای پروژه
-- public/index.html: فرم عمومی متقاضیان
-- public/admin.html: پنل خصوصی مشاهده و مدیریت درخواست‌ها
-- src/index.js: API ثبت درخواست‌ها، احراز هویت پنل و اتصال به KV
-- wrangler.jsonc: تنظیمات انتشار Cloudflare Worker و منابع پروژه
+- \`public/index.html\`: فرم عمومی متقاضیان
+- \`public/admin.html\`: پنل خصوصی مشاهده و مدیریت درخواست‌ها
+- \`src/index.js\`: API ثبت درخواست‌ها، اعتبارسنجی، محدودیت ضداسپم و احراز هویت پنل
+- \`wrangler.jsonc\`: تنظیمات انتشار Cloudflare Worker و منابع پروژه
 
 ## رفتار فرم
-- دکمه ثبت پس از تکمیل هر ۷ پاسخ نمایش داده می‌شود.
-- پیش از ثبت، متقاضی رضایت خود را برای ذخیره و پیگیری اطلاعات اعلام می‌کند.
-- پس از ثبت موفق، پاسخ‌ها در KV ذخیره می‌شوند؛ پیام روبیکا فقط یک راه ارتباط تکمیلی است.
-- هیچ اطلاعات مشتری در کد مرورگر یا مخزن GitHub ذخیره نمی‌شود.
+- دکمه ثبت پس از تکمیل هر ۷ پاسخ و تأیید رضایت نمایش داده می‌شود.
+- پس از ثبت موفق، پاسخ‌ها در فضای KV ذخیره می‌شوند؛ فرستادن پیام روبیکا راه ارتباط تکمیلی است و شرط ثبت درخواست نیست.
+- هیچ پاسخ مشتری در کد مرورگر یا مخزن GitHub ذخیره نمی‌شود.
 - اطلاعات درخواست حداکثر ۱۸۰ روز نگهداری می‌شود و از پنل قابل حذف است.
+- درخواست‌های معتبر از هر IP به‌صورت نرم‌افزاری به ۵ مورد در ساعت محدود شده‌اند؛ این محدودیت برای کاهش اسپم است و جایگزین سامانهٔ ضدسوءاستفادهٔ پیشرفته نیست.
 
-## انتشار
-Workers Builds پس از هر commit روی شاخه main دستور npx wrangler deploy را اجرا می‌کند.
-نام Worker در wrangler.jsonc باید با نام Worker در Cloudflare یکسان باشد: mr-muscle-consultation.
+## انتشار و ذخیره‌سازی
+Workers Builds پس از هر commit روی شاخه \`main\` دستور \`npx wrangler deploy\` را اجرا می‌کند.
+نام Worker در \`wrangler.jsonc\` برابر \`mr-muscle-consultation\` است.
+یک KV binding با نام \`LEADS\` در فایل Wrangler تعریف شده است. Wrangler در زمان deploy می‌تواند namespace را خودکار provision کند؛ برای انتشار Git-based، شناسهٔ منبع در مخزن ثبت نمی‌شود و از پنل Cloudflare قابل مشاهده است. توکن Build باید مجوز **Workers KV Storage: Edit** داشته باشد. اگر build با خطای permission یا KV مواجه شد، باید مجوز توکن Workers Builds بررسی شود.
 
-## فضای ذخیره‌سازی
-یک KV binding با نام LEADS در wrangler.jsonc تعریف شده است. در صورت پشتیبانی حساب/توکن Build، Wrangler هنگام استقرار namespace را به‌صورت خودکار ایجاد می‌کند. شناسه منبع در مخزن قرار داده نمی‌شود و در حساب Cloudflare نگهداری می‌شود.
+## رمز پنل (ضروری)
+برای فعال‌سازی پنل، در Cloudflare وارد Worker با نام \`mr-muscle-consultation\` شو:
+1. \`Settings\` → \`Variables and Secrets\`
+2. \`Add\` → نوع \`Secret\`
+3. نام متغیر: \`ADMIN_TOKEN\`
+4. مقدار: یک رمز تصادفی محرمانه با حداقل ۳۲ نویسه؛ آن را خودت بساز و در اختیار کسی قرار نده.
+5. \`Save and Deploy\` را بزن.
 
-## رمز پنل
-برای فعال‌سازی پنل، در Cloudflare وارد Worker با نام mr-muscle-consultation شو:
-Settings → Variables and Secrets → Add → Type: Secret
-نام متغیر: ADMIN_TOKEN
-مقدار: یک توکن تصادفی محرمانه با حداقل ۳۲ نویسه.
-سپس Save and Deploy را اجرا کن.
+بدون این Secret، API ذخیره‌سازی پس از انتشار قابل استفاده است اما ورود به پنل مدیریت مسدود می‌ماند تا رمز تنظیم شود.
 
-نشانی پنل:
-https://mr-muscle-consultation.majnoonierfan.workers.dev/admin.html
+## لینک‌ها
+- فرم مشتری: https://mr-muscle-consultation.majnoonierfan.workers.dev/
+- پنل مربی: https://mr-muscle-consultation.majnoonierfan.workers.dev/admin.html
 
 توکن را هرگز در GitHub، فایل‌های عمومی یا پیام‌های قابل مشاهده برای مشتریان قرار نده. پنل توکن را فقط در sessionStorage نشست مرورگر نگه می‌دارد.
