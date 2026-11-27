@@ -47,7 +47,11 @@
     button:active{transform:scale(.99)}
     .submit-note{font-size:11px;color:#aeb4bc;text-align:center;margin:9px 0 0}
     .status{display:none;margin-top:15px;padding:13px;border-radius:12px;background:#102719;border:1px solid #237d45;color:#c8f7d8;font-size:13px}
-    .status.show{display:block}\n    .status.error{background:#351515;border-color:#a83c3c;color:#ffd3d3}\n    .consent{display:flex;align-items:flex-start;gap:10px;margin:0 0 15px;padding:12px;border:1px solid #484d54;border-radius:12px;background:#101215;color:#cfd3d8;font-size:12px;line-height:1.8}\n    .consent input{width:20px;min-width:20px;min-height:20px;height:20px;flex:0 0 20px;margin:2px 0 0;accent-color:#ffca05}\n    .trap{position:absolute!important;left:-10000px!important;top:auto!important;width:1px!important;height:1px!important;overflow:hidden!important}
+    .status.show{display:block}
+    .status.error{background:#351515;border-color:#a83c3c;color:#ffd3d3}
+    .consent{display:flex;align-items:flex-start;gap:10px;margin:0 0 15px;padding:12px;border:1px solid #484d54;border-radius:12px;background:#101215;color:#cfd3d8;font-size:12px;line-height:1.8}
+    .consent input{width:20px;min-width:20px;min-height:20px;height:20px;flex:0 0 20px;margin:2px 0 0;accent-color:#ffca05}
+    .trap{position:absolute!important;left:-10000px!important;top:auto!important;width:1px!important;height:1px!important;overflow:hidden!important}
     .actions{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-top:12px}
     .actions a,.actions button{min-height:46px;border-radius:11px;display:flex;align-items:center;justify-content:center;text-decoration:none;font-size:13px;padding:8px}
     .actions a{background:#1c8e48;color:white;font-weight:800}
@@ -194,6 +198,14 @@
     }
   }
 
+  function createRequestId() {
+    if (window.crypto && typeof window.crypto.randomUUID === 'function') return window.crypto.randomUUID();
+    return 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, function(c) {
+      const r = Math.floor(Math.random() * 16);
+      return (c === 'x' ? r : ((r & 3) | 8)).toString(16);
+    });
+  }
+
   function makeMessage(data) {
     const rubikaId = data.rubika.startsWith('@') ? data.rubika : '@' + data.rubika;
     return [
@@ -243,7 +255,7 @@
           ...data,
           consent: document.getElementById('consent').checked,
           website: getVal('website'),
-          requestId: (window.crypto && crypto.randomUUID) ? crypto.randomUUID() : (Date.now().toString(36) + Math.random().toString(36).slice(2))
+          requestId: createRequestId()
         })
       });
       const result = await response.json().catch(() => ({}));
