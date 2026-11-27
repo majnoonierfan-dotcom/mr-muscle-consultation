@@ -74,12 +74,19 @@ async function handleSubmit(request, env) {
   if (!env.LEADS) return json({ error: "storage_unavailable" }, 503);
   const origin = request.headers.get("Origin");
   if (origin && origin !== new URL(request.url).origin) return json({ error: "forbidden" }, 403);
-  const length = Number(request.headers.get("Content-Length") || 0);
-  if (length > 10000) return json({ error: "payload_too_large" }, 413);
+  let rawBody;
+  try {
+    rawBody = await request.text();
+  } catch (_) {
+    return json({ error: "invalid_json" }, 400);
+  }
+  if (new TextEncoder().encode(rawBody).length > 10000) {
+    return json({ error: "payload_too_large" }, 413);
+  }
 
   let body;
   try {
-    body = await request.json();
+    body = JSON.parse(rawBody);
   } catch (_) {
     return json({ error: "invalid_json" }, 400);
   }
@@ -98,6 +105,15 @@ async function handleSubmit(request, env) {
       return json({ ok: true, id: previous.id, duplicate: true }, 200);
     }
   }
+
+  // Soft anti-spam limit: no more than five valid submissions per source IP per hour.
+  const sourceIp = request.headers.get("CF-Connecting-IP") || "unknown";
+  const digest = await crypto.subtle.digest("SHA-256", new TextEncoder().encode(sourceIp));
+  const ipHash = Array.from(new Uint8Array(digest), byte => byte.toString(16).padStart(2, "0")).join("");
+  const rateKey = "rate:" + ipHash;
+  const currentCount = Number(await env.LEADS.get(rateKey) || 0);
+  if (currentCount >= 5) return json({ error: "rate_limited" }, 429);
+  await env.LEADS.put(rateKey, String(currentCount + 1), { expirationTtl: 60 * 60 });
 
   const now = Date.now();
   const uuid = crypto.randomUUID();
