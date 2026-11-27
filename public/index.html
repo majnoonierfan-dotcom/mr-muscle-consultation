@@ -8,16 +8,17 @@
   <title>درخواست مشاوره رایگان | آقای عضله</title>
   <style>
     :root{--bg:#0b0c0e;--panel:#15171a;--panel2:#1d2024;--yellow:#ffca05;--yellow2:#f4b900;--white:#f7f7f7;--muted:#b9bec5;--line:#363a40;--green:#22c55e}
-    *{box-sizing:border-box}
-    body{margin:0;background:radial-gradient(ellipse at top,#24211a 0,#0b0c0e 45%);color:var(--white);font-family:Tahoma,Arial,sans-serif;line-height:1.8;min-height:100vh}
-    .wrap{width:min(100% - 24px,680px);margin:0 auto;padding:18px 0 42px}
+    *{box-sizing:border-box;min-width:0}
+    html{width:100%;max-width:100%;overflow-x:hidden}
+    body{width:100%;max-width:100%;overflow-x:hidden;margin:0;background:radial-gradient(ellipse at top,#24211a 0,#0b0c0e 45%);color:var(--white);font-family:Tahoma,Arial,sans-serif;line-height:1.8;min-height:100vh}
+    .wrap{width:100%;max-width:680px;margin:0 auto;padding:18px 12px 42px}
     .brand{text-align:center;color:var(--yellow);font-weight:900;font-size:23px;letter-spacing:-.5px;margin:4px 0 12px}
-    .hero-card{position:relative;display:flex;align-items:center;justify-content:space-between;gap:12px;min-height:150px;padding:20px;overflow:hidden;border-radius:18px;border:1px solid #625126;background:radial-gradient(circle at 15% 20%,#59430e 0,transparent 42%),linear-gradient(135deg,#252016,#111214 72%);box-shadow:0 14px 40px #0009}
-    .hero-copy{display:flex;flex-direction:column;gap:5px;max-width:68%}
-    .hero-copy strong{font-size:25px;font-weight:900;color:var(--yellow)}
+    .hero-card{position:relative;display:flex;align-items:center;justify-content:space-between;gap:10px;min-height:150px;padding:16px;overflow:hidden;border-radius:18px;border:1px solid #625126;background:radial-gradient(circle at 15% 20%,#59430e 0,transparent 42%),linear-gradient(135deg,#252016,#111214 72%);box-shadow:0 14px 40px #0009}
+    .hero-copy{display:flex;flex:1 1 0;flex-direction:column;gap:5px;min-width:0;max-width:none;overflow-wrap:anywhere}
+    .hero-copy strong{font-size:clamp(19px,6vw,25px);font-weight:900;color:var(--yellow)}
     .hero-copy span{font-size:13px;color:#fff}
     .hero-copy small{font-size:11px;color:#c7c0ae}
-    .hero-mark{display:flex;flex-direction:column;align-items:center;justify-content:center;flex:0 0 96px;height:96px;border:2px solid var(--yellow);border-radius:50%;color:var(--yellow);transform:rotate(-8deg);box-shadow:0 0 24px #ffca0520}
+    .hero-mark{display:flex;flex-direction:column;align-items:center;justify-content:center;flex:0 0 76px;width:76px;height:76px;border:2px solid var(--yellow);border-radius:50%;color:var(--yellow);transform:rotate(-8deg);box-shadow:0 0 24px #ffca0520}
     .hero-mark span{font-size:32px;font-weight:1000;line-height:1}
     .hero-mark b{font-size:10px;letter-spacing:1px}
     .hero-badge{position:absolute;left:12px;bottom:8px;color:#ffdc51;font-size:10px;font-weight:800}
@@ -25,6 +26,11 @@
     h1{font-size:23px;line-height:1.5;margin:0 0 7px;color:var(--yellow)}
     .intro p{margin:0;color:#e2e2e2;font-size:14px}
     .card{background:linear-gradient(160deg,#1a1c20,#111214);border:1px solid #383b40;border-radius:20px;padding:18px 16px;box-shadow:0 15px 34px #0007}
+    .guide{margin:0 0 14px;padding:14px 15px;border:1px solid #4a4024;border-radius:16px;background:linear-gradient(145deg,#201d15,#121315)}
+    .guide h2{margin:0 0 7px;color:var(--yellow);font-size:15px}
+    .guide p{margin:0 0 6px;color:#e8e8e8;font-size:12px}
+    .guide ol{margin:0;padding:0 20px 0 0;color:#cbd0d6;font-size:12px;line-height:1.9}
+    .guide li{padding:2px 0}
     .progress-head{display:flex;justify-content:space-between;align-items:center;color:var(--muted);font-size:12px;margin-bottom:8px}
     .bar{height:7px;border-radius:99px;background:#34383e;overflow:hidden;margin-bottom:18px}
     .bar span{height:100%;width:0;display:block;background:linear-gradient(90deg,#f2a900,#ffe15a);transition:width .25s}
@@ -52,14 +58,14 @@
     .consent{display:flex;align-items:flex-start;gap:10px;margin:0 0 15px;padding:12px;border:1px solid #484d54;border-radius:12px;background:#101215;color:#cfd3d8;font-size:12px;line-height:1.8}
     .consent input{width:20px;min-width:20px;min-height:20px;height:20px;flex:0 0 20px;margin:2px 0 0;accent-color:#ffca05}
     .trap{position:absolute!important;left:-10000px!important;top:auto!important;width:1px!important;height:1px!important;overflow:hidden!important}
-    .actions{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-top:12px}
-    .actions a,.actions button{min-height:46px;border-radius:11px;display:flex;align-items:center;justify-content:center;text-decoration:none;font-size:13px;padding:8px}
+    .actions{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:8px;margin-top:12px}
+    .actions a,.actions button{min-width:0;overflow-wrap:anywhere;min-height:46px;border-radius:11px;display:flex;align-items:center;justify-content:center;text-decoration:none;font-size:13px;padding:8px}
     .actions a{background:#1c8e48;color:white;font-weight:800}
     .actions button{background:#292d32;color:#fff;border:1px solid #4b5159;box-shadow:none}
     textarea{width:100%;margin-top:12px;min-height:120px;resize:vertical;background:#090a0b;border:1px solid #3f454d;border-radius:10px;padding:10px;color:#eee;font:12px/1.9 Tahoma,Arial,sans-serif;display:none}
     .foot{text-align:center;color:#8d939b;font-size:11px;margin:16px 0 0}
     .foot a{color:#ffda36;text-decoration:none}
-    @media(max-width:390px){.choices{grid-template-columns:1fr}.card{padding:15px 12px}h1{font-size:21px}.wrap{width:min(100% - 18px,680px)}}
+    @media(max-width:390px){.choices{grid-template-columns:1fr}.card{padding:15px 12px}h1{font-size:21px}.wrap{padding-left:9px;padding-right:9px}.hero-card{padding:14px 12px}.hero-mark{flex-basis:68px;width:68px;height:68px}}
   </style>
 </head>
 <body>
@@ -77,6 +83,18 @@
     <section class="intro">
       <h1>وقت تغییر اندامت رسیده!</h1>
       <p>برای دریافت مشاوره رایگان، به ۷ سؤال کوتاه پاسخ بده.</p>
+    </section>
+
+    <section class="guide" aria-labelledby="guideTitle">
+      <h2 id="guideTitle">راهنمای تکمیل و ثبت درخواست</h2>
+      <p>برای ثبت درست درخواست مشاوره، این ۴ مرحله را انجام بده:</p>
+      <ol>
+        <li>آیدی روبیکایت را دقیق و بدون فاصله وارد کن.</li>
+        <li>به هر ۷ سؤال پاسخ بده؛ گزینه‌ها را انتخاب و عددها را وارد کن.</li>
+        <li>بعد از تکمیل پاسخ‌ها، تیک موافقت با ذخیره اطلاعات را فعال کن.</li>
+        <li>دکمه «ثبت درخواست مشاوره رایگان» را بزن و تا نمایش پیام نتیجه صبر کن.</li>
+      </ol>
+      <p>با نمایش پیام موفقیت، درخواستت در سامانه ثبت شده است. ارسال پیام تکمیلی در روبیکا اختیاری است.</p>
     </section>
 
     <form class="card" id="consultForm" novalidate>
