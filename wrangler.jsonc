@@ -12,7 +12,8 @@
   },
   "kv_namespaces": [
     {
-      "binding": "LEADS"
+      "binding": "LEADS",
+      "id": "ea9a2fed979c4c8497bce5f16f045123"
     }
   ]
 }
